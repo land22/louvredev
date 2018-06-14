@@ -10,4 +10,9 @@ class LouvreController extends Controller
     {
         return $this->render('LWLouvreBundle:Louvre:index.html.twig');
     }
+
+    public function billeterieAction()
+    {
+        return $this->render('LWLouvreBundle:Louvre:billeterie.html.twig');
+    }
 }

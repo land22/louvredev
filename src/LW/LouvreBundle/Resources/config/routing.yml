@@ -1,3 +1,7 @@
 lw_louvre_homepage:
     path:     /
     defaults: { _controller: LWLouvreBundle:Louvre:index }
+
+lw_louvre_billeterie:
+    path:     /billeterie
+    defaults: { _controller: LWLouvreBundle:Louvre:billeterie }
