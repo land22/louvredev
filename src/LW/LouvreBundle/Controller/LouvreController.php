@@ -4,10 +4,10 @@ namespace LW\LouvreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class DefaultController extends Controller
+class LouvreController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('LWLouvreBundle:Default:index.html.twig');
+        return $this->render('LWLouvreBundle:Louvre:index.html.twig');
     }
 }
