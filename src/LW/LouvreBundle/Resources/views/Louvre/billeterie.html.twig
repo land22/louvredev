@@ -9,12 +9,12 @@
 			<div id="form_louvre">
 				<div class="form-group">
 			    	<label for="nbBillets">Choisissez un mombre de billets</label>
-			    	<input type="number" class="form-control" id="nbBillets" aria-describedby="Saisir le nombre de billets" placeholder="Saisir le nombre de billets">			    	
+			    	<input type="number" class="form-control" id="nbBillets" aria-describedby="Saisir le nombre de billets" min="1" placeholder="Saisir le nombre de billets">			    	
 			  	</div>
 				<div class="form-group">
-					{{ form_label(form.visiteDate, "Date de la votre visite", {'label_attr': {'class': 'datevisitlabel'}}) }} 
+					{{ form_label(form.visiteDate, "Date de votre visite", {'label_attr': {'class': 'datevisitlabel'}}) }} 
 					{{ form_errors(form.visiteDate) }} 
-					{{ form_widget(form.visiteDate,{'attr': {'class': 'js-datepicker form-controlx'}}) }}
+					{{ form_widget(form.visiteDate,{'attr': {'class': 'datepicker form-controlx'}}) }}
 				</div>
 				<div class="form-group">
 					{{ form_label(form.typeOrder, "Type de journée", {'label_attr': {'class': 'typelabel'}}) }}
@@ -49,3 +49,15 @@
 		{{ form_end(form) }}
 </div>
 {%endblock%}
+{%block javascript%}
+    {{ parent() }}
+    <script src="{{ asset('assets/js/datePicker.js')}}"></script>
+    <script>
+        var date = new Date();
+      $('.datepicker').datepicker({
+          startDate: '-3d',
+          startDate: date,
+          daysOfWeekDisabled: "2"
+        });
+        </script>
+    {%endblock%}

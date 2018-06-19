@@ -5,7 +5,13 @@ namespace LW\LouvreBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 
 class OrdersType extends AbstractType
 {
@@ -16,8 +22,22 @@ class OrdersType extends AbstractType
     {
         $builder
                 ->add('createdDate',HiddenType::class)
-                ->add('visiteDate')
-                ->add('typeOrder')
+                ->add('visiteDate', TextType::class, array(
+            'label' => 'Date de la visite',
+            'attr'  => array(
+                'class' => 'js-datepicker',
+                'label' => 'Date de la visite',
+                'widget' => 'single_text',
+                'format' => 'dd/MM/yyyy',
+                'placeholder'=> 'Date de la visite',
+            ),
+        ))
+                ->add('typeOrder',ChoiceType::class, array(
+            'choices' => array(
+                'Journée'       => 'Journée',
+                'Demi-journée'  => 'Demi-journée',
+                ),
+             ))
                 ->add('price',HiddenType::class)
                 ->add('codeReservation',HiddenType::class)
                 ->add('email',HiddenType::class);
