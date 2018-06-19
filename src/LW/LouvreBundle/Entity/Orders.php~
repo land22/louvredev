@@ -223,45 +223,5 @@ class Orders
     {
         return $this->email;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->tickets = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add ticket
-     *
-     * @param \LWLouvreBundle\Entity\Ticket $ticket
-     *
-     * @return Orders
-     */
-    public function addTicket(\LWLouvreBundle\Entity\Ticket $ticket)
-    {
-        $this->tickets[] = $ticket;
-
-        return $this;
-    }
-
-    /**
-     * Remove ticket
-     *
-     * @param \LWLouvreBundle\Entity\Ticket $ticket
-     */
-    public function removeTicket(\LWLouvreBundle\Entity\Ticket $ticket)
-    {
-        $this->tickets->removeElement($ticket);
-    }
-
-    /**
-     * Get tickets
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getTickets()
-    {
-        return $this->tickets;
-    }
 }
+
