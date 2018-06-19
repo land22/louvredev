@@ -5,6 +5,7 @@ namespace LW\LouvreBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class OrdersType extends AbstractType
 {
@@ -13,7 +14,13 @@ class OrdersType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('createdDate')->add('visiteDate')->add('typeOrder')->add('price')->add('codeReservation')->add('email');
+        $builder
+                ->add('createdDate',HiddenType::class)
+                ->add('visiteDate')
+                ->add('typeOrder')
+                ->add('price',HiddenType::class)
+                ->add('codeReservation',HiddenType::class)
+                ->add('email',HiddenType::class);
     }
     
     /**
