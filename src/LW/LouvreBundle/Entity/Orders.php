@@ -32,6 +32,7 @@ class Orders
      * @var \DateTime
      *
      * @ORM\Column(name="visite_date", type="date", nullable=true)
+     * @Assert\NotBlank(message="Veuillez selectionner une date!")
      */
     private $visiteDate;
 

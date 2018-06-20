@@ -26,8 +26,10 @@
 					{{ form_errors(form.email) }}
 					{{ form_widget(form.email, {'attr':{'class': 'form-control'}}) }}
 				</div>
-				
-				<div id="billets">
+                                <br />
+                                <br />
+				<button id="add_billet" class="btn btn-default">Enregistrer les billets</button>
+				<div id="billets" style = "display:none;">
 					
 				</div>
 			</div>
@@ -54,10 +56,25 @@
     <script src="{{ asset('assets/js/datePicker.js')}}"></script>
     <script>
         var date = new Date();
-      $('.datepicker').datepicker({
+        $('.datepicker').datepicker({
           startDate: '-3d',
           startDate: date,
           daysOfWeekDisabled: "2"
         });
-        </script>
+    </script>
+
+    <script>
+     	$( document ).ready(function() {
+            //Action exercution lorsqu'on clique sur le lien ajouter un billet
+	        $("#add_billet").on("click", function(){
+                        //Afficher le contenu du formulaire des billets
+                        var ticketsContent = $("#lw_louvrebundle_orders_tickets").attr("data-prototype");
+                        for (var i = 0; i<$("#nbBillets").val(); i++) {
+                            $("#billets").append(ticketsContent);
+                            $("#billets").show();
+                        }
+	        });
+        });
+
+    </script>
     {%endblock%}

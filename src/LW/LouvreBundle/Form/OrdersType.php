@@ -22,25 +22,31 @@ class OrdersType extends AbstractType
     {
         $builder
                 ->add('createdDate',HiddenType::class)
+               
                 ->add('visiteDate', TextType::class, array(
-            'label' => 'Date de la visite',
-            'attr'  => array(
-                'class' => 'js-datepicker',
-                'label' => 'Date de la visite',
-                'widget' => 'single_text',
-                'format' => 'dd/MM/yyyy',
-                'placeholder'=> 'Date de la visite',
-            ),
-        ))
+                  'label' => 'Date de la visite',
+                     'attr'  => array(
+                  'class' => 'js-datepicker',
+                  'label' => 'Date de la visite',
+                  'widget' => 'single_text',
+                  'format' => 'dd/MM/yyyy',
+                  'placeholder'=> 'Date de la visite',
+                   ),
+                ))
                 ->add('typeOrder',ChoiceType::class, array(
-            'choices' => array(
-                'Journée'       => 'Journée',
-                'Demi-journée'  => 'Demi-journée',
-                ),
-             ))
+                       'choices' => array(
+                        'Journée'       => 'Journée',
+                        'Demi-journée'  => 'Demi-journée',
+                      ),
+                    ))
                 ->add('price',HiddenType::class)
                 ->add('codeReservation',HiddenType::class)
-                ->add('email',HiddenType::class);
+
+                ->add('email',HiddenType::class)
+                 ->add('tickets', CollectionType::class, array(
+                          'entry_type'   => TicketType::class,
+                           'allow_add'    => true
+                      ));
     }
     
     /**

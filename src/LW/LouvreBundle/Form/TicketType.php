@@ -5,6 +5,7 @@ namespace LW\LouvreBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class TicketType extends AbstractType
 {
@@ -18,7 +19,7 @@ class TicketType extends AbstractType
                 ->add('lastname')
                 ->add('country')
                 ->add('birthday')
-                ->add('reduction');
+                ->add('reduction',HiddenType::class);
     }
     
     /**
