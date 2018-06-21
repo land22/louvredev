@@ -19,7 +19,7 @@
 				<div class="form-group">
 					{{ form_label(form.typeOrder, "Type de journée", {'label_attr': {'class': 'typelabel'}}) }}
 					{{ form_errors(form.typeOrder) }}
-					{{ form_widget(form.typeOrder, {'attr':	{'class': 'form-control'}}) }}
+					{{ form_widget(form.typeOrder, {'attr':	{'class': 'type_journee form-control','id':'type_journee'}}) }}
 				</div>
 				<div class="form-group" style="display: none;">
 					{{ form_label(form.email, "Votre adresse email", {'label_attr': {'class': 'emaillabel'}}) }} 
@@ -55,7 +55,7 @@
     {{ parent() }}
     <script src="{{ asset('assets/js/datePicker.js')}}"></script>
     <script>
-        var date = new Date();
+        
         $('.datepicker').datepicker({
           startDate: '-3d',
           startDate: date,
@@ -64,11 +64,18 @@
     </script>
 
     <script>
-     	$( document ).ready(function() {
+     	$(function() {
+	     	  //varition de la l'option journée et demi journée
+	     	  var date_jour = new Date();
+              if (date_jour.getHours() > 13) {
+	     	 $('.form .type_journee').html('<option value="Demi-journée">Demi-journée</option>');
+	     	 }
             //Action exercution lorsqu'on clique sur le lien ajouter un billet
 	        $("#add_billet").on("click", function(){
                         //Afficher le contenu du formulaire des billets
                         var ticketsContent = $("#lw_louvrebundle_orders_tickets").attr("data-prototype");
+                         console.log($("#type_journee").val()); 
+                        
                         for (var i = 0; i<$("#nbBillets").val(); i++) {
                             $("#billets").append(ticketsContent);
                             $("#billets").show();
