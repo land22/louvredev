@@ -6,6 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class TicketType extends AbstractType
 {
@@ -15,10 +17,36 @@ class TicketType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('firstname')
-                ->add('lastname')
-                ->add('country')
-                ->add('birthday')
+                ->add('firstname', TextType::class, array(
+                  'label' => 'Nom',
+                     'attr'  => array(
+                  'class' => 'form-control',
+                  'label' => 'Nom',
+                  'placeholder'=> 'votre nom',
+                   ),
+                     ))
+                ->add('lastname', TextType::class, array(
+                  'label' => 'Prénom',
+                     'attr'  => array(
+                  'class' => 'form-control',
+                  'label' => 'Prénom',
+                  'placeholder'=> 'Prénom',
+                   ),
+                     ))
+                ->add('country', TextType::class, array(
+                  'label' => 'Pays',
+                     'attr'  => array(
+                  'class' => 'form-control',
+                  'label' => 'Pays',
+                  'placeholder'=> 'Pays',
+                   ),
+                     ))
+                ->add('birthday', DateType::class, array(
+                  'label' => 'Date de naissance',
+                     'attr'  => array(
+                  'label' => 'Date de naissance',
+                   ),
+                     ))
                 ->add('reduction',HiddenType::class);
     }
     

@@ -55,7 +55,7 @@
     {{ parent() }}
     <script src="{{ asset('assets/js/datePicker.js')}}"></script>
     <script>
-        
+        var date = new Date();
         $('.datepicker').datepicker({
           startDate: '-3d',
           startDate: date,
@@ -74,8 +74,6 @@
 	        $("#add_billet").on("click", function(){
                         //Afficher le contenu du formulaire des billets
                         var ticketsContent = $("#lw_louvrebundle_orders_tickets").attr("data-prototype");
-                         console.log($("#type_journee").val()); 
-                        
                         for (var i = 0; i<$("#nbBillets").val(); i++) {
                             $("#billets").append(ticketsContent);
                             $("#billets").show();
