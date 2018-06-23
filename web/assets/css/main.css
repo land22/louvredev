@@ -93,3 +93,10 @@ img.pull-left { margin-right: 10px; }
     #billets input {
     width: 20%;
     }	
+   /*
+   *partie consacrer aux messages d'alert
+   */
+    .alert-success, .alert-danger {
+     width: 30%;
+     margin-left: 35%;
+    }

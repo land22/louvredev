@@ -66,6 +66,7 @@ class Orders
     
     /**
      * @ORM\OneToMany(targetEntity="LW\LouvreBundle\Entity\Ticket", mappedBy="Orders", cascade={"persist", "remove"})
+     *@ORM\JoinTable(name="lw_order_tiket")
      * 
      */
     private $tickets;
