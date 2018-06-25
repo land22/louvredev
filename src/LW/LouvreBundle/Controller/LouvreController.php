@@ -7,6 +7,13 @@ use Symfony\Component\HttpFoundation\Request;
 use LW\LouvreBundle\Entity\Orders;
 use LW\LouvreBundle\Form\OrdersType;
 
+// Importation des fichiers de stripe
+require('stripe/init.php');
+use \stripe\Stripe;
+use \stripe\Subscription;
+use \stripe\Customer;
+use \stripe\Charge;
+
 class LouvreController extends Controller
 {
     public function indexAction()
@@ -26,5 +33,26 @@ class LouvreController extends Controller
          return $this->render('LWLouvreBundle:Louvre:billeterie.html.twig', array(
             'form' => $form->createView(),
         ));
+    }
+
+    public function stripe_payAction(Request $request)
+    {
+        // Set your secret key: remember to change this to your live secret key in production
+        // See your keys here: https://dashboard.stripe.com/account/apikeys
+         \stripe\Stripe::setApiKey("sk_test_MgZ8tjk4OcFvwrkTCP9NHmji");
+
+        // Token is created using Checkout or Elements!
+        // Get the payment token ID submitted by the form:
+         $token = $request->request->get('stripeToken');
+        $charge = \stripe\Charge::create([
+            'customer' => 2,
+            'amount' => 999,
+            'currency' => 'eur',
+            'description' => 'Payement Louvre',
+            'source' => $request->request->get('stripeToken'),
+        ]);
+
+                // on va générer notre formulaire
+         return $this->render('LWLouvreBundle:Louvre:stripe_pay.html.twig');
     }
 }
