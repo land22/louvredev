@@ -44,13 +44,7 @@ class LouvreController extends Controller
         // Token is created using Checkout or Elements!
         // Get the payment token ID submitted by the form:
          $token = $request->request->get('stripeToken');
-        $charge = \stripe\Charge::create([
-            'customer' => 2,
-            'amount' => 999,
-            'currency' => 'eur',
-            'description' => 'Payement Louvre',
-            'source' => $request->request->get('stripeToken'),
-        ]);
+        $charge = \stripe\Charge::create();
 
                 // on va générer notre formulaire
          return $this->render('LWLouvreBundle:Louvre:stripe_pay.html.twig');
