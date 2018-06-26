@@ -28,7 +28,11 @@ class LouvreController extends Controller
         $form = $this->get('form.factory')->create(OrdersType::class, $booking);
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
-            
+            if($form->isValid()){
+                echo"<pre>";
+              var_dump($form->getData());
+              die();
+            } 
         }
          return $this->render('LWLouvreBundle:Louvre:billeterie.html.twig', array(
             'form' => $form->createView(),
@@ -44,7 +48,13 @@ class LouvreController extends Controller
         // Token is created using Checkout or Elements!
         // Get the payment token ID submitted by the form:
          $token = $request->request->get('stripeToken');
-        $charge = \stripe\Charge::create();
+                $charge = \Stripe\Charge::create([
+            'amount' => 999,
+            'currency' => 'usd',
+            'description' => 'Example charge',
+            'source' => $token,
+             ]);
+
 
                 // on va générer notre formulaire
          return $this->render('LWLouvreBundle:Louvre:stripe_pay.html.twig');

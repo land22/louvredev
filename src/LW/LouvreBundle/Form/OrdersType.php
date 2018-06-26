@@ -43,10 +43,11 @@ class OrdersType extends AbstractType
                 ->add('codeReservation',HiddenType::class)
 
                 ->add('email',HiddenType::class)
-                 ->add('tickets', CollectionType::class, array(
+                ->add('tickets', CollectionType::class, array(
                           'entry_type'   => TicketType::class,
                            'allow_add'    => true
-                      ));
+                      ))
+                 ->add('save',SubmitType::class);
     }
     
     /**

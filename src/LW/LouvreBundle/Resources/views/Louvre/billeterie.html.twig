@@ -37,6 +37,10 @@
 				<div id="billets" style = "display:none;">
 					
 				</div>
+				<div class="col-sm-12" style = "display:none;" id = "bloc_save">
+					{# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
+					{{ form_widget(form.save, {'attr': {'class': 'step1 btn btn-primary'}}) }} 
+		       </div>
 			</div>
 			
 			
@@ -44,10 +48,7 @@
 		</div>
 		<br>
 				
-		<div class="col-sm-12">
-			{# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget 
-			{{ form_widget(form.save, {'attr': {'class': 'step1 btn btn-primary'}}) }} #}
-		</div>
+		
 		<br>
 		<br> {# Génération automatique des champs pas encore écrits. Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !) et tous les champs cachés (type « hidden »). #} 
 		{{ form_rest(form) }}
@@ -78,12 +79,19 @@
 	     	 }
             //Action exercution lorsqu'on clique sur le lien ajouter un billet
 	        $("#add_billet").on("click", function(){
-                        //Afficher le contenu du formulaire des billets
-                        var ticketsContent = $("#lw_louvrebundle_orders_tickets").attr("data-prototype");
-                        for (var i = 0; i<$("#nbBillets").val(); i++) {
-                            $("#billets").append(ticketsContent);
-                            $("#billets").show();
-                        }
+		      	if($("#nbBillets").val() >= 1 && $("#lw_louvrebundle_orders_visiteDate").val() != "" && $("#lw_louvrebundle_orders_typeOrder").val() != ""  ){
+	                //Afficher le contenu du formulaire des billets
+	                var ticketsContent = $("#lw_louvrebundle_orders_tickets").attr("data-prototype");
+	                $("#billets").html("");
+	                for (var i = 0; i<$("#nbBillets").val(); i++) 
+	                {
+	                    var container = ticketsContent.replace(/__name__label__/g, 'Billet n°' + (i+1)).replace(/__name__/g,        i)
+	                    $("#billets").append(container);
+	                    $("#billets").show();
+	                }
+	                $("#bloc_save").show();
+                }
+
 	        });
         });
 
