@@ -2,7 +2,11 @@ services:
 #    lw_louvre.example:
 #        class: LW\LouvreBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
-services:
+#lien service pour vérifier la disponibilité de la date
     lw_louvre.Checkdate:
         class: LW\LouvreBundle\CheckdateDate\lwCheckDate
+#lien service pour calculer les tarif
+    lw_louvre.tarifDate:
+        class: LW\LouvreBundle\tarifDate\LWtarifDate
+
 
