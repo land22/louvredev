@@ -102,9 +102,16 @@ img.pull-left { margin-right: 10px; }
      margin-left: 35%;
     }
     /*
-    **style tarification
+    **style tarification et informations
     */
+    .information {
+    	width: 80%;
+    	margin-top: 1%;
+    	margin-left: 10%;
+    	margin-bottom: -4%;
+    }
     .tarification {
     	width: 75%;
-    	margin-left:18%;
+    	margin-left:10%;
+    	margin-top: -3.5%;
     }
