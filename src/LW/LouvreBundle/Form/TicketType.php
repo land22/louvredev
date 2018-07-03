@@ -45,12 +45,15 @@ class TicketType extends AbstractType
                 ->add('birthday', DateType::class, array(
                   'label' => 'Date de naissance',
                      'attr'  => array(
-                  'label' => 'Date de naissance',
+                  'class' => 'form-control',
                    ),
                      ))
                 ->add('reduit', CheckboxType::class, array(
                   'label' => 'Tarif reduit',
                   'required' => false,
+                   'attr'  => array(
+                  'class' => 'form-check',
+                   ),
                      ))
                 ->add('reduction',HiddenType::class);
     }

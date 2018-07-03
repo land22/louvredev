@@ -84,14 +84,15 @@ img.pull-left { margin-right: 10px; }
      Partie style  pour les billets
 	*/
 
-	#billets {
-    width: 40%;
+	#billets > {
+    width: 100%;
     }
     #billets label {
-    width: 20%;
+    width: 50%;
+    margin-left: 2%;
     }
     #billets input {
-    width: 20%;
+    width: 60%;
     }	
    /*
    *partie consacrer aux messages d'alert
@@ -99,4 +100,11 @@ img.pull-left { margin-right: 10px; }
     .alert-success, .alert-danger {
      width: 30%;
      margin-left: 35%;
+    }
+    /*
+    **style tarification
+    */
+    .tarification {
+    	width: 75%;
+    	margin-left:18%;
     }

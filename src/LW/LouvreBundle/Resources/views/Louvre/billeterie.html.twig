@@ -2,7 +2,9 @@
 {%block container%}
 
 	        
-             
+     <div class="alert alert-info">
+  Nous vous précisons pour des raisons de gestion qu’il n’est pas possible de réserver pour <strong>les jours passés (!) , les dimanches, les jours fériés et les jours où plus de 1000 billets ont été vendus en tout pour ne pas dépasser la capacité du musée.</strong>. Merci pour votre bonne comprehension !!! 
+</div>    
 	 
    
 <div class="form">
@@ -55,6 +57,16 @@
 		
 		{# Fermeture de la balise <form>du formulaire HTML #}		
 		{{ form_end(form) }}
+</div>
+
+<div class="alert tarification">
+ <h3>Tarifications</h3>
+   <ul class="list-group">
+  <li class="list-group-item">Un tarif « normal » à partir de 12 ans<span class="badge">16€</span></li>
+  <li class="list-group-item">Un tarif « enfant » à partir de 4 ans et jusqu’à 12 ans(l’entrée est gratuite pour les enfants de moins de 4 ans) <span class="badge">8€</span></li>
+  <li class="list-group-item">Un tarif « senior » à partir de 60 ans <span class="badge">12€</span></li>
+  <li class="list-group-item">Un tarif « réduit » accordé dans certaines conditions (étudiant, employé du musée, d’un service du Ministère de la Culture, militaire…) <span class="badge">10€</span></li>
+</ul> 
 </div>
 {%endblock%}
 {%block javascript%}
