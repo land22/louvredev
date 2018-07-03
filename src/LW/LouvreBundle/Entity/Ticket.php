@@ -56,6 +56,12 @@ class Ticket
      */
     private $reduction;
 
+    /**
+   * @ORM\Column(name="reduit", type="boolean")
+   */
+
+  private $reduit = true;
+
 
     /**
      * Get id
@@ -186,5 +192,28 @@ class Ticket
     {
         return $this->reduction;
     }
-}
 
+    /**
+     * Set reduit
+     *
+     * @param boolean $reduit
+     *
+     * @return Ticket
+     */
+    public function setReduit($reduit)
+    {
+        $this->reduit = $reduit;
+
+        return $this;
+    }
+
+    /**
+     * Get reduit
+     *
+     * @return boolean
+     */
+    public function getReduit()
+    {
+        return $this->reduit;
+    }
+}

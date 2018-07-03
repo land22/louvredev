@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class TicketType extends AbstractType
 {
@@ -46,6 +47,10 @@ class TicketType extends AbstractType
                      'attr'  => array(
                   'label' => 'Date de naissance',
                    ),
+                     ))
+                ->add('reduit', CheckboxType::class, array(
+                  'label' => 'Tarif reduit',
+                  'required' => false,
                      ))
                 ->add('reduction',HiddenType::class);
     }

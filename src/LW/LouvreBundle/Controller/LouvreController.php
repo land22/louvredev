@@ -31,19 +31,13 @@ class LouvreController extends Controller
             if($form->isValid()){
 
               $tarif_fnt = $this->container->get('lw_louvre.tarifDate');
-               $somme = 0;
-
-               $nbr_billet = $request->request->get('nbr_billet');
-
-              for ($i=0; $i < $nbr_billet ; $i++) { 
-                  $somme = $somme + $tarif_fnt->tarif($form["birthday"]->getData());
-              }
+               $total = $tarif_fnt->tarif($booking);
 
 
                 echo"<pre>";
-              var_dump($form->getData());
               echo "<br />";
-              var_dump($somme);
+              var_dump($total);
+              
               
               die();
             } 

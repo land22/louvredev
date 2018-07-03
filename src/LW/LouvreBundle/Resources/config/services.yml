@@ -5,6 +5,8 @@ services:
 #lien service pour vérifier la disponibilité de la date
     lw_louvre.Checkdate:
         class: LW\LouvreBundle\CheckdateDate\lwCheckDate
+        arguments:
+        - "@doctrine.orm.entity_manager"
 #lien service pour calculer les tarif
     lw_louvre.tarifDate:
         class: LW\LouvreBundle\tarifDate\LWtarifDate
