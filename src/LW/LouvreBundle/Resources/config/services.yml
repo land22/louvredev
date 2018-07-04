@@ -3,8 +3,8 @@ services:
 #        class: LW\LouvreBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
 #lien service pour vérifier la disponibilité de la date
-    lw_louvre.Checkdate:
-        class: LW\LouvreBundle\CheckdateDate\lwCheckDate
+    lw_louvre.checkdate:
+        class: LW\LouvreBundle\checkDate\lwCheckdate
         arguments:
         - "@doctrine.orm.entity_manager"
 #lien service pour calculer les tarif
