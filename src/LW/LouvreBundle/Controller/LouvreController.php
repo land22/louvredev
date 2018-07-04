@@ -67,7 +67,8 @@ class LouvreController extends Controller
                 // on va générer notre formulaire
          return $this->render('LWLouvreBundle:Louvre:stripe_pay.html.twig');*/
           $tarif_fnt = $this->container->get('lw_louvre.checkdate');
-          $total = $tarif_fnt->bnrBillet();
+          $date = "2018-05-05";
+          $total = $tarif_fnt->bnrBillet($date);
 
                 echo"<pre>";
               echo "<br />";
