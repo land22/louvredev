@@ -1,5 +1,5 @@
 <?php 
-namespace LW\LouvreBundle\checkDate;
+namespace LW\LouvreBundle\Services\checkDate;
 use Doctrine\ORM\EntityManager;
 
 class lwCheckdate

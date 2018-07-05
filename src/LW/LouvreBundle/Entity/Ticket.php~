@@ -253,28 +253,4 @@ class Ticket
     {
         return $this->price;
     }
-
-    /**
-     * Set order
-     *
-     * @param \LW\LouvreBundle\Entity\Orders $order
-     *
-     * @return Ticket
-     */
-    public function setOrder(\LW\LouvreBundle\Entity\Orders $order = null)
-    {
-        $this->order = $order;
-
-        return $this;
-    }
-
-    /**
-     * Get order
-     *
-     * @return \LW\LouvreBundle\Entity\Orders
-     */
-    public function getOrder()
-    {
-        return $this->order;
-    }
 }

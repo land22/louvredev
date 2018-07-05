@@ -30,13 +30,13 @@ class LouvreController extends Controller
         if ($form->isSubmitted()) {
             if($form->isValid()){
 
-              $tarif_fnt = $this->container->get('lw_louvre.tarifDate');
-               $total = $tarif_fnt->tarif($booking);
+              $serviceTarifDate = $this->container->get('lw_louvre.tarifDate');
+              $serviceTarifDate->calculTarif($booking);
 
 
                 echo"<pre>";
               echo "<br />";
-              var_dump($total);
+              var_dump($booking);
               
               
               die();

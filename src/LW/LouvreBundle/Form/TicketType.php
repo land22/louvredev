@@ -44,7 +44,8 @@ class TicketType extends AbstractType
                      ))
                 ->add('birthday', DateType::class, array(
                   'label' => 'Date de naissance',
-                     'attr'  => array(
+                  'years' => range(1900, date('Y')),
+                  'attr'  => array(
                   'class' => 'form-control',
                    ),
                      ))

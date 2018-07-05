@@ -4,11 +4,14 @@ services:
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
 #lien service pour vérifier la disponibilité de la date
     lw_louvre.checkdate:
-        class: LW\LouvreBundle\checkDate\lwCheckdate
+        class: LW\LouvreBundle\Services\checkDate\lwCheckdate
         arguments:
         - "@doctrine.orm.entity_manager"
 #lien service pour calculer les tarif
     lw_louvre.tarifDate:
-        class: LW\LouvreBundle\tarifDate\LWtarifDate
-
+        class: LW\LouvreBundle\Services\tarifDate\LWtarifDate
+#permet de taguer le service checkdate
+#lw_louvre.CheckdateExtension:
+ #       class: LW\LouvreBundle\Twig\CheckdateExtension
+        
 
