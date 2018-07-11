@@ -29,10 +29,11 @@ class lwCheckdate
   $repositoryTicket = $this->em->getRepository('LWLouvreBundle:Ticket');
 
    $query = $repositoryTicket->createQueryBuilder('t')
-           ->select('COUNT(t)')
-           ->where('t.order = :id_order')
-           ->setParameter('id_order', $result->getId)
-           ->getQuery();
+                             ->innerJoin('t.order', 'o')
+                             ->addSelect('o')
+                             ->where('o.visiteDate = :visiteDate')
+                             ->setParameter('visiteDate', $date_vi)
+                             ->getQuery();
       $orders = $query->getSingleScalarResult();
 
       return $orders;

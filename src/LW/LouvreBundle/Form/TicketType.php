@@ -22,7 +22,7 @@ class TicketType extends AbstractType
                 ->add('firstname', TextType::class, array(
                   'label' => 'Nom',
                      'attr'  => array(
-                  'class' => 'form-control',
+                  'class' => 'form-group',
                   'label' => 'Nom',
                   'placeholder'=> 'votre nom',
                    ),
@@ -30,7 +30,7 @@ class TicketType extends AbstractType
                 ->add('lastname', TextType::class, array(
                   'label' => 'Prénom',
                      'attr'  => array(
-                  'class' => 'form-control',
+                  'class' => 'form-group',
                   'label' => 'Prénom',
                   'placeholder'=> 'Prénom',
                    ),
@@ -38,7 +38,7 @@ class TicketType extends AbstractType
                 ->add('country', CountryType::class, array(
                   'label' => 'Pays',
                      'attr'  => array(
-                  'class' => 'form-control',
+                  'class' => 'form-group',
                   'label' => 'Pays',
                   'placeholder'=> 'Pays',
                    ),
@@ -47,14 +47,14 @@ class TicketType extends AbstractType
                   'label' => 'Date de naissance',
                   'years' => range(1900, date('Y')),
                   'attr'  => array(
-                  'class' => 'form-control',
+                  'class' => 'form-group',
                    ),
                      ))
                 ->add('reduit', CheckboxType::class, array(
                   'label' => 'Tarif reduit',
                   'required' => false,
                    'attr'  => array(
-                  'class' => 'form-check',
+                  'class' => 'form-group',
                    ),
                      ))
                 ->add('reduction',HiddenType::class);

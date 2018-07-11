@@ -3,6 +3,7 @@ namespace LW\LouvreBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use LW\LouvreBundle\Entity\Orders;
+use LW\LouvreBundle\Entity\Ticket;
 use LW\LouvreBundle\Form\OrdersType;
 // Importation des fichiers de stripe
 require('stripe/init.php');
@@ -26,12 +27,16 @@ class LouvreController extends Controller
             if($form->isValid()){
               $serviceTarifDate = $this->container->get('lw_louvre.tarifDate');
               $serviceTarifDate->calculTarif($booking);
-                echo"<pre>";
+                /*echo"<pre>";
               echo "<br />";
               var_dump($booking);
               
               
-              die();
+              die();*/
+              $session = $request->getSession();
+              $session->set('booking', $booking);
+              return $this->redirectToRoute('lw_louvre_stripe_pay');
+              
             } 
         }
          return $this->render('LWLouvreBundle:Louvre:billeterie.html.twig', array(
@@ -39,10 +44,22 @@ class LouvreController extends Controller
         ));
     }
     public function avaibleDateAction(){
-          
+         /* $repository = $this
+              ->getDoctrine()
+              ->getManager()
+              ->getRepository('LWLouvreBundle:Ticket');
+          $result= $repository->findOneBy(array('id' => 1));
+          */
+          $current_date = new \DateTime('now');
+          $checkdate = $this->container->get('lw_louvre.checkdate');
+            $result = $checkdate->bnrBillet($current_date);
+
                 echo"<pre>";
               echo "<br />";
-              var_dump($total);
+           // foreach ($result as $value) {
+              var_dump($result);
+           // }
+              
               die();
     }
 
@@ -50,24 +67,24 @@ class LouvreController extends Controller
     {
         // Set your secret key: remember to change this to your live secret key in production
         // See your keys here: https://dashboard.stripe.com/account/apikeys
-       //  \stripe\Stripe::setApiKey("sk_test_MgZ8tjk4OcFvwrkTCP9NHmji");
+       /* \stripe\Stripe::setApiKey("sk_test_MgZ8tjk4OcFvwrkTCP9NHmji");
         // Token is created using Checkout or Elements!
         // Get the payment token ID submitted by the form:
-       /*  $token = $request->request->get('stripeToken');
+        $token = $request->request->get('stripeToken');
                 $charge = \Stripe\Charge::create([
             'amount' => 999,
             'currency' => 'usd',
             'description' => 'Example charge',
             'source' => $token,
-             ]);
+             ]);*/
                 // on va générer notre formulaire
-         return $this->render('LWLouvreBundle:Louvre:stripe_pay.html.twig');*/
-          $tarif_fnt = $this->container->get('lw_louvre.checkdate');
+         return $this->render('LWLouvreBundle:Louvre:stripe_pay.html.twig');
+          /*$tarif_fnt = $this->container->get('lw_louvre.checkdate');
           $date = "2018-05-05";
           $total = $tarif_fnt->bnrBillet($date);
                 echo"<pre>";
               echo "<br />";
               var_dump($total);
-              die();
+              die();*/
     }
 }
