@@ -29,11 +29,9 @@ class LouvreController extends Controller
               $serviceTarifDate->calculTarif($booking);
                 /*echo"<pre>";
               echo "<br />";
-              var_dump($booking);
-              
-              
+               
               die();*/
-              $session = $request->getSession();
+             $session = $request->getSession();
               $session->set('booking', $booking);
               return $this->redirectToRoute('lw_louvre_stripe_pay');
               
@@ -48,16 +46,16 @@ class LouvreController extends Controller
               ->getDoctrine()
               ->getManager()
               ->getRepository('LWLouvreBundle:Ticket');
-          $result= $repository->findOneBy(array('id' => 1));
-          */
-          $current_date = new \DateTime('now');
+          $result = $repository->find(1);*/
+          
+          $current_date = date("Y-m-d");
           $checkdate = $this->container->get('lw_louvre.checkdate');
             $result = $checkdate->bnrBillet($current_date);
 
                 echo"<pre>";
               echo "<br />";
            // foreach ($result as $value) {
-              var_dump($result);
+              var_dump($current_date);
            // }
               
               die();

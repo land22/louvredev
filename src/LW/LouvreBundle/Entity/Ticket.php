@@ -261,7 +261,7 @@ class Ticket
      *
      * @return Ticket
      */
-    public function setOrder(\LW\LouvreBundle\Entity\Orders $order = null)
+    public function setOrder(\LW\LouvreBundle\Entity\Orders $order)
     {
         $this->order = $order;
 

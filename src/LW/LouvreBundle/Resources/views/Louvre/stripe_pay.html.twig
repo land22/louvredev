@@ -1,6 +1,14 @@
 {% extends "LWLouvreBundle::layout.html.twig" %}
 {%block container%}
 
+{% for liste , option in app.session.get('booking').tickets %}
+
+    <p> Billet No {{ liste + 1 }} = {{ option.price }} €</p>
+
+  {% endfor %}
+
+   <p><strong>Total de la commande</strong> {{ app.session.get('booking').price }} € </p>
+
 <form action="/" method="post" id="payment-form">
   <div class="form-row">
     <label for="card-element">

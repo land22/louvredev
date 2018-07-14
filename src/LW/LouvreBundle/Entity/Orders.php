@@ -65,8 +65,7 @@ class Orders
     private $email;
     
     /**
-     *@ORM\OneToMany(targetEntity="LW\LouvreBundle\Entity\Ticket", mappedBy="Orders", cascade={"persist", "remove"})
-     *@ORM\JoinTable(name="Ticket")     
+     *@ORM\OneToMany(targetEntity="LW\LouvreBundle\Entity\Ticket", mappedBy="orders", cascade={"persist", "remove"})
      *
      * 
      */
@@ -241,20 +240,23 @@ class Orders
      *
      * @return Orders
      */
-    public function addTicket(\LWLouvreBundle\Entity\Ticket $ticket)
+   /* public function addTicket(\LWLouvreBundle\Entity\Ticket $ticket)
     {
         $this->tickets[] = $ticket;
+        $ticket->setOrder($this);
 
         return $this;
-    }
+    }*/
 
     /**
      * Remove ticket
      *
      * @param \LWLouvreBundle\Entity\Ticket $ticket
      */
-    public function removeTicket(\LWLouvreBundle\Entity\Ticket $ticket)
+    public function removeTicket($ticket)
     {
+        var_dump($ticket);
+        die();
         $this->tickets->removeElement($ticket);
     }
 
