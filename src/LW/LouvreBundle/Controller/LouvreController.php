@@ -65,7 +65,7 @@ class LouvreController extends Controller
     {
         // Set your secret key: remember to change this to your live secret key in production
         // See your keys here: https://dashboard.stripe.com/account/apikeys
-       /* \stripe\Stripe::setApiKey("sk_test_MgZ8tjk4OcFvwrkTCP9NHmji");
+        \stripe\Stripe::setApiKey("sk_test_MgZ8tjk4OcFvwrkTCP9NHmji");
         // Token is created using Checkout or Elements!
         // Get the payment token ID submitted by the form:
         $token = $request->request->get('stripeToken');
@@ -74,15 +74,9 @@ class LouvreController extends Controller
             'currency' => 'usd',
             'description' => 'Example charge',
             'source' => $token,
-             ]);*/
+             ]);
                 // on va générer notre formulaire
          return $this->render('LWLouvreBundle:Louvre:stripe_pay.html.twig');
-          /*$tarif_fnt = $this->container->get('lw_louvre.checkdate');
-          $date = "2018-05-05";
-          $total = $tarif_fnt->bnrBillet($date);
-                echo"<pre>";
-              echo "<br />";
-              var_dump($total);
-              die();*/
+          
     }
 }

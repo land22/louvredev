@@ -1,29 +1,59 @@
 {% extends "LWLouvreBundle::layout.html.twig" %}
+
+
+{%block into %}
+
+<div class="alert tarification">
+ <h3>Recapitulatif</h3>
+  <table class="table table-bordered"> 
+                 
+         <thead> 
+                 <tr> 
+                <td>Billet No</td>
+                 <td>Propriétaire</td> 
+                 <td>Montant (€)</td> 
+                 </tr> 
+         </thead> 
+         <tbody>
+
+			 {% for liste , option in app.session.get('booking').tickets %}
+			 	<tr> 
+                 <td>{{ liste + 1 }}</td> 
+                 <td>{{ option.firstname }}  {{ option.lastname}}</td>
+                 <td>{{ option.price }}</td> 
+                 </tr> 
+			  {% endfor %}
+
+	     </tbody>
+  </table>
+
+			   <p><strong>Montant total de la commande</strong> {{ app.session.get('booking').price }} € </p>
+</div>
+  
+{%endblock%}
+
 {%block container%}
 
-{% for liste , option in app.session.get('booking').tickets %}
+		<form action="/" method="post" id="payment-form">
+			<legend>Formulaire de payment</legend>
+		  <div class="form-row" style="width:50%;" >
+		  	<div class="form-group">
+			    	<label for="nbBillets">Votre adresse mail</label>
+			    	<input type="email" class="form-control nbr_billet" id="nbBillets" aria-describedby="Saisir le nombre de billets" placeholder="Veuillez saisir votre adresse mail" name ="email_order">			    	
+			  	</div>
+		    <label for="card-element">
+		      Votre numero de carte de credit
+		    </label>
+		    <div id="card-element">
+		      <!-- A Stripe Element will be inserted here. -->
+		    </div>
 
-    <p> Billet No {{ liste + 1 }} = {{ option.price }} €</p>
+		    <!-- Used to display form errors. -->
+		    <div id="card-errors" role="alert"></div>
+		  </div>
 
-  {% endfor %}
-
-   <p><strong>Total de la commande</strong> {{ app.session.get('booking').price }} € </p>
-
-<form action="/" method="post" id="payment-form">
-  <div class="form-row">
-    <label for="card-element">
-      Votre numero de carte de credit
-    </label>
-    <div id="card-element">
-      <!-- A Stripe Element will be inserted here. -->
-    </div>
-
-    <!-- Used to display form errors. -->
-    <div id="card-errors" role="alert"></div>
-  </div>
-
-  <button>Effectuer votre payement</button>
-</form>
+		  <button class="btn btn-secondary">Effectuer votre payement</button>
+	    </form>
 {%endblock%}
 {%block javascript%}
 {{ parent() }}
