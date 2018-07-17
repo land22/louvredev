@@ -25,15 +25,22 @@ class LouvreController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             if($form->isValid()){
+              //service pour calculer les tarifs des billets
               $serviceTarifDate = $this->container->get('lw_louvre.tarifDate');
               $serviceTarifDate->calculTarif($booking);
-                /*echo"<pre>";
-              echo "<br />";
-               
-              die();*/
-             $session = $request->getSession();
-              $session->set('booking', $booking);
-              return $this->redirectToRoute('lw_louvre_stripe_pay');
+              //service pour calculer le nombre total des billets
+              $checkdate = $this->container->get('lw_louvre.checkdate');
+              $totalBillets = $checkdate->getTotalBillets($booking->getVisiteDate());
+              if($totalBillets <= 1000)
+               {
+                 $session = $request->getSession();
+                 $session->set('booking', $booking);
+                 return $this->redirectToRoute('lw_louvre_stripe_pay');
+               }
+               if ($totalBillets > 1000)
+               {
+               $this->addFlash('notice','Les réservations sont complètes pour cette date veuillez choisir une autre date !!!');
+               } 
               
             } 
         }
@@ -42,20 +49,15 @@ class LouvreController extends Controller
         ));
     }
     public function avaibleDateAction(){
-         /* $repository = $this
-              ->getDoctrine()
-              ->getManager()
-              ->getRepository('LWLouvreBundle:Ticket');
-          $result = $repository->find(1);*/
-          
-          $current_date = date("Y-m-d");
+        
+          $current_date = "2018-07-17";
           $checkdate = $this->container->get('lw_louvre.checkdate');
-            $result = $checkdate->bnrBillet($current_date);
+            $result = $checkdate->getTotalBillets($current_date);
 
                 echo"<pre>";
               echo "<br />";
            // foreach ($result as $value) {
-              var_dump($current_date);
+              var_dump($result);
            // }
               
               die();

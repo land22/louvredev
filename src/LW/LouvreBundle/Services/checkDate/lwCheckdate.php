@@ -13,31 +13,27 @@ class lwCheckdate
 	{
 		$this->em = $EntityManager;
 	}
-	/**
-   * Vérifie le nombre de billet pour une date précise
-   *
-   * @param DateTime $date_vi
-   * @return int $orders
-   */
+	 /**
+     * Retourne le nombre de billet pour une date donnée
+     * @param string $visiteDate
+     * @return number
+     */
+    public function getTotalBillets($visiteDate) {
+        
+        $totalTickets = 0;
+        if ( $visiteDate ) {
+            $dateTimeVisite      = new \DateTime($visiteDate);
+            $totalTickets        = 0;
+            $ordersOfCurrentDay  = $this->em->getRepository('LWLouvreBundle:Orders')->findBy(array('visiteDate'=> $dateTimeVisite ));
+            if ( !empty($ordersOfCurrentDay) ) {
+                foreach ( $ordersOfCurrentDay as $row )
+                {
+                    $billets = $this->em->getRepository('LWLouvreBundle:Ticket')->findBy( array('order'=> $row->getId()) );
+                    $totalTickets += sizeof($billets);
+                }
+            }
+        }
+        return $totalTickets;
+    }
 
-  public function bnrBillet($date_vi)
-
-  {      
-   $repositoryOrders = $this->em->getRepository('LWLouvreBundle:Orders');
-  //on recupère l'id de order de la date de visite choisi
-  $result = $repositoryOrders->findByVisiteDate($date_vi);
-  $repositoryTicket = $this->em->getRepository('LWLouvreBundle:Ticket');
-
-   $query = $repositoryTicket->createQueryBuilder('t')
-                             ->innerJoin('t.order', 'o')
-                             ->addSelect('o')
-                             ->where('o.visiteDate = :visiteDate')
-                             ->setParameter('visiteDate', $date_vi)
-                             ->getQuery();
-      $orders = $query->getSingleScalarResult();
-
-      return $orders;
-
-
-  }
 }

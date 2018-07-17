@@ -1,5 +1,10 @@
 {% extends "LWLouvreBundle::layout.html.twig" %}
 {%block into %}
+{% for message in app.flashes('notice') %}
+     <div class="alert alert-danger" style="margin-top:1.5%;"><strong>
+        {{ message }}
+    </strong></div>
+{% endfor %}
  <div class="alert alert-info information">
   Nous vous précisons pour des raisons de gestion qu’il n’est pas possible de réserver pour <strong>les jours passés (!) , les dimanches, les jours fériés et les jours où plus de 1000 billets ont été vendus en tout pour ne pas dépasser la capacité du musée.</strong>. Merci pour votre bonne comprehension !!! 
 </div>
