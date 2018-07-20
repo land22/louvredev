@@ -31,7 +31,7 @@ class LouvreController extends Controller
               //service pour calculer le nombre total des billets
               $checkdate = $this->container->get('lw_louvre.checkdate');
               $totalBillets = $checkdate->getTotalBillets($booking->getVisiteDate());
-              if($totalBillets <= 1000)
+             /* if($totalBillets <= 1000)
                {
                  $session = $request->getSession();
                  $session->set('booking', $booking);
@@ -40,7 +40,7 @@ class LouvreController extends Controller
                if ($totalBillets > 1000)
                {
                $this->addFlash('notice','Les réservations sont complètes pour cette date veuillez choisir une autre date !!!');
-               } 
+               } */
               
             } 
         }
@@ -67,7 +67,7 @@ class LouvreController extends Controller
     {
         // Set your secret key: remember to change this to your live secret key in production
         // See your keys here: https://dashboard.stripe.com/account/apikeys
-        \stripe\Stripe::setApiKey("sk_test_MgZ8tjk4OcFvwrkTCP9NHmji");
+        /*\stripe\Stripe::setApiKey("sk_test_MgZ8tjk4OcFvwrkTCP9NHmji");
         // Token is created using Checkout or Elements!
         // Get the payment token ID submitted by the form:
         $token = $request->request->get('stripeToken');
@@ -76,7 +76,7 @@ class LouvreController extends Controller
             'currency' => 'usd',
             'description' => 'Example charge',
             'source' => $token,
-             ]);
+             ]);*/
                 // on va générer notre formulaire
          return $this->render('LWLouvreBundle:Louvre:stripe_pay.html.twig');
           
