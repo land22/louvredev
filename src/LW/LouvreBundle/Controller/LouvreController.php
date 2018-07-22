@@ -5,12 +5,9 @@ use Symfony\Component\HttpFoundation\Request;
 use LW\LouvreBundle\Entity\Orders;
 use LW\LouvreBundle\Entity\Ticket;
 use LW\LouvreBundle\Form\OrdersType;
-// Importation des fichiers de stripe
-require('stripe/init.php');
-use \stripe\Stripe;
-use \stripe\Subscription;
-use \stripe\Customer;
-use \stripe\Charge;
+// Importation du fichier nécéssaire pour charger automatique les fichiers de stripe
+require_once('../vendor/autoload.php');
+
 class LouvreController extends Controller
 {
     public function indexAction()
@@ -31,16 +28,16 @@ class LouvreController extends Controller
               //service pour calculer le nombre total des billets
               $checkdate = $this->container->get('lw_louvre.checkdate');
               $totalBillets = $checkdate->getTotalBillets($booking->getVisiteDate());
-             /* if($totalBillets <= 1000)
+              if($totalBillets <= 1000)
                {
                  $session = $request->getSession();
                  $session->set('booking', $booking);
-                 return $this->redirectToRoute('lw_louvre_stripe_pay');
+                 return $this->redirectToRoute('lw_louvre_stripe_form');
                }
                if ($totalBillets > 1000)
                {
                $this->addFlash('notice','Les réservations sont complètes pour cette date veuillez choisir une autre date !!!');
-               } */
+               } 
               
             } 
         }
@@ -53,32 +50,31 @@ class LouvreController extends Controller
           $current_date = "2018-07-17";
           $checkdate = $this->container->get('lw_louvre.checkdate');
             $result = $checkdate->getTotalBillets($current_date);
+            $random = random_bytes(5);
 
                 echo"<pre>";
               echo "<br />";
            // foreach ($result as $value) {
-              var_dump($result);
+              dump($random);
            // }
               
               die();
     }
 
-    public function stripe_payAction(Request $request)
+    public function stripeFormAction(Request $request)
+    {     
+         return $this->render('LWLouvreBundle:Louvre:stripe_pay.html.twig');       
+    }
+
+     public function stripePaymentAction(Request $request)
     {
-        // Set your secret key: remember to change this to your live secret key in production
-        // See your keys here: https://dashboard.stripe.com/account/apikeys
-        /*\stripe\Stripe::setApiKey("sk_test_MgZ8tjk4OcFvwrkTCP9NHmji");
-        // Token is created using Checkout or Elements!
-        // Get the payment token ID submitted by the form:
-        $token = $request->request->get('stripeToken');
-                $charge = \Stripe\Charge::create([
-            'amount' => 999,
-            'currency' => 'usd',
-            'description' => 'Example charge',
-            'source' => $token,
-             ]);*/
-                // on va générer notre formulaire
-         return $this->render('LWLouvreBundle:Louvre:stripe_pay.html.twig');
-          
+           $session = $request->getSession();
+
+        \Stripe\Stripe::setApiKey('sk_test_MgZ8tjk4OcFvwrkTCP9NHmji');
+         \Stripe\Charge::create(['amount' => $session->get('booking')->getPrice()*100,
+                                'currency' => 'EUR',
+                                'description' => 'payement du billet sur le site du musée de louvre',
+                                'source' => $request->request->get('stripeToken')]);
+         return $this->redirectToRoute('lw_louvre_homepage');     
     }
 }

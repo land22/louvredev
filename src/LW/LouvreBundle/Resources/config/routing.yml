@@ -6,9 +6,12 @@ lw_louvre_billeterie:
     path:     /billeterie
     defaults: { _controller: LWLouvreBundle:Louvre:billeterie }
 
-lw_louvre_stripe_pay:
-    path:     /stripe_pay
-    defaults: { _controller: LWLouvreBundle:Louvre:stripe_pay }
+lw_louvre_stripe_form:
+    path:     /stripeForm
+    defaults: { _controller: LWLouvreBundle:Louvre:stripeForm }
+lw_louvre_stripe_payment:
+    path:     /stripePayment
+    defaults: { _controller: LWLouvreBundle:Louvre:stripePayment }
 
 lw_louvre_avaible_date:
     path:     /avaible_date
