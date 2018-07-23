@@ -1,1 +1,9 @@
 {% extends "LWLouvreBundle::layout.html.twig" %}
+
+{%block into %}
+{% for message in app.flashes('info') %}
+     <div class="alert alert-success" style="margin-top:1.5%;"><strong>
+        {{ message }}
+    </strong></div>
+{% endfor %}
+{%endblock%}

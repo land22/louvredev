@@ -27,18 +27,9 @@ class LouvreController extends Controller
               $serviceTarifDate->calculTarif($booking);
               //service pour calculer le nombre total des billets
               $checkdate = $this->container->get('lw_louvre.checkdate');
-              $totalBillets = $checkdate->getTotalBillets($booking->getVisiteDate());
-              if($totalBillets <= 1000)
-               {
                  $session = $request->getSession();
                  $session->set('booking', $booking);
                  return $this->redirectToRoute('lw_louvre_stripe_form');
-               }
-               if ($totalBillets > 1000)
-               {
-               $this->addFlash('notice','Les réservations sont complètes pour cette date veuillez choisir une autre date !!!');
-               } 
-              
             } 
         }
          return $this->render('LWLouvreBundle:Louvre:billeterie.html.twig', array(
@@ -60,21 +51,31 @@ class LouvreController extends Controller
               
               die();
     }
-
+    //Action pour le formulaire de stripe
     public function stripeFormAction(Request $request)
     {     
          return $this->render('LWLouvreBundle:Louvre:stripe_pay.html.twig');       
     }
-
+     //Action pour le payement stripe
      public function stripePaymentAction(Request $request)
     {
            $session = $request->getSession();
 
         \Stripe\Stripe::setApiKey('sk_test_MgZ8tjk4OcFvwrkTCP9NHmji');
-         \Stripe\Charge::create(['amount' => $session->get('booking')->getPrice()*100,
+         $responseStripe = \Stripe\Charge::create(['amount' => $session->get('booking')->getPrice()*100,
                                 'currency' => 'EUR',
                                 'description' => 'payement du billet sur le site du musée de louvre',
                                 'source' => $request->request->get('stripeToken')]);
-         return $this->redirectToRoute('lw_louvre_homepage');     
+
+        if ($responseStripe == null OR empty($responseStripe))
+        {
+          $this->addFlash('notice','Erreur votre reservation n\'a pas été pris en compte veuillez recommancez !!!');
+          return $this->redirectToRoute('lw_louvre_billeterie');
+        }
+        else 
+        { //en cas de reussite on enregistre en base de donnée 
+          $this->addFlash('info','Votre reservation a été éffectuée avec success veuillez consulter votre mail !!!');
+           return $this->redirectToRoute('lw_louvre_homepage');
+        }     
     }
 }
