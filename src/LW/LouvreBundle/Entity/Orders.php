@@ -35,6 +35,7 @@ class Orders
      * @ORM\Column(name="visite_date", type="date", nullable=true)
      */
     private $visiteDate;
+    
 
     /**
      * @var string
@@ -70,7 +71,6 @@ class Orders
      * 
      */
     private $tickets;
-
 
     /**
      * Get id

@@ -1,9 +1,9 @@
 <?php 
 
-namespace LW\LouvreBundle\Twig;
+namespace LW\LouvreBundle\Services;
 
 
-use LW\LouvreBundle\checkDate\lwCheckdate;
+use LW\LouvreBundle\lwCheckdate;
 
 
 class CheckdateExtension

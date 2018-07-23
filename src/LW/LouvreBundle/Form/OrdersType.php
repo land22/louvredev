@@ -23,15 +23,10 @@ class OrdersType extends AbstractType
         $builder
                 ->add('createdDate',HiddenType::class)
                
-                ->add('visiteDate', TextType::class, array(
-                  'label' => 'Date de la visite',
-                     'attr'  => array(
-                  'class' => 'js-datepicker',
+                ->add('visiteDate', DateType::class, array(
                   'label' => 'Date de la visite',
                   'widget' => 'single_text',
-                  'format' => 'dd/MM/yyyy',
-                  'placeholder'=> 'Date de la visite',
-                   ),
+                     'attr' => ['class' => 'js-datepicker'],
                 ))
                 ->add('typeOrder',ChoiceType::class, array(
                        'choices' => array(

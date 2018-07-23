@@ -1,5 +1,5 @@
 <?php
-namespace LW\LouvreBundle\Services\tarifDate;
+namespace LW\LouvreBundle\Services;
 
 
 
