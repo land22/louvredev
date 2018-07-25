@@ -61,8 +61,14 @@ class LouvreController extends Controller
   //Action pour le payement stripe
   public function stripePaymentAction(Request $request)
   {
+    //Ajouter la tva de 20% au prix total
     $session = $request->getSession();
-    /*\Stripe\Stripe::setApiKey('sk_test_MgZ8tjk4OcFvwrkTCP9NHmji');
+    $prixTotal = $session->get('booking')->getPrice()*1.2;
+    $prixTotal = intval($prixTotal);
+    $session->get('booking')->setPrice($prixTotal);
+
+    //debut code stripe
+    \Stripe\Stripe::setApiKey('sk_test_MgZ8tjk4OcFvwrkTCP9NHmji');
     $responseStripe = \Stripe\Charge::create(['amount' => $session->get('booking')->getPrice()*100,
                                 'currency' => 'EUR',
                                 'description' => 'payement du billet sur le site du musée de louvre',
@@ -74,12 +80,14 @@ class LouvreController extends Controller
     }
     else 
     { //en cas de reussite on enregistre en base de donnée
+     $session->get('booking')->setCodeReservation(random_int(0,1000));
+     $session->get('booking')->setEmail('landrywabo8@gmail.com');
      $em = $this->getDoctrine()->getManager();
      $em->persist($session->get('booking'));
      $em->flush(); 
       $this->addFlash('info','Votre reservation a été éffectuée avec success veuillez consulter votre mail !!!');
       return $this->redirectToRoute('lw_louvre_homepage');
-    } */
+    } 
      $session->get('booking')->setCodeReservation(random_int(0,1000));
      $session->get('booking')->setEmail('landrywabo8@gmail.com');
      $em = $this->getDoctrine()->getManager();

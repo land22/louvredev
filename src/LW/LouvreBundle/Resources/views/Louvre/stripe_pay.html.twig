@@ -11,7 +11,8 @@
                  <tr> 
                 <td>Billet No</td>
                  <td>Propriétaire</td> 
-                 <td>Montant (€)</td> 
+                 <td>Montant HT(€)</td> 
+                 <td>Montant TTC (€)</td> 
                  </tr> 
          </thead> 
          <tbody>
@@ -21,13 +22,14 @@
                  <td>{{ liste + 1 }}</td> 
                  <td>{{ option.firstname }}  {{ option.lastname}}</td>
                  <td>{{ option.price }}</td> 
+                 <td>{{ option.price * 1.2 }}</td> 
                  </tr> 
 			  {% endfor %}
 
 	     </tbody>
   </table>
 
-			   <p><strong>Montant total de la commande</strong> {{ app.session.get('booking').price }} € </p>
+			   <p><strong>Montant total TTC de la commande</strong> {{ app.session.get('booking').price * 1.2 }} € </p>
 </div>
   
 {%endblock%}
