@@ -10,8 +10,11 @@ services:
 #lien service pour calculer les tarif
     lw_louvre.tarifDate:
         class: LW\LouvreBundle\Services\LWtarifDate
-#permet de taguer le service checkdate
-#lw_louvre.CheckdateExtension:
- #       class: LW\LouvreBundle\Twig\CheckdateExtension
+#service pour envoyer par mail les billets
+    lw_louvre.sendOrders:
+       class: LW\LouvreBundle\Services\LWsendOrders
+       arguments:
+        - "@mailer"
+        - %locale%
         
 

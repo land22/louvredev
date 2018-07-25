@@ -90,6 +90,10 @@ class LouvreController extends Controller
     } 
      $session->get('booking')->setCodeReservation(random_int(0,1000));
      $session->get('booking')->setEmail('landrywabo8@gmail.com');
+     //envoie des billets à l'utilisateur
+     $serviceSendOrders = $this->container->get('lw_louvre.sendOrders');
+     $serviceSendOrders->sendOrders($session->get('booking'));
+     //debut pour l'enregistrement en base de données
      $em = $this->getDoctrine()->getManager();
      $em->persist($session->get('booking'));
      $em->flush();
