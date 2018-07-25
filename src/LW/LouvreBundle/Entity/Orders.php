@@ -4,6 +4,7 @@ namespace LW\LouvreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use LW\LouvreBundle\Validators\SoldDaysConstraint;
 
 /**
  * Orders
@@ -33,6 +34,7 @@ class Orders
      * @var \DateTime
      *
      * @ORM\Column(name="visite_date", type="date", nullable=true)
+     * @SoldDaysConstraint()
      */
     private $visiteDate;
     

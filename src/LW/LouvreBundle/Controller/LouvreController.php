@@ -41,14 +41,14 @@ class LouvreController extends Controller
   }
   public function avaibleDateAction()
   {      
-    $current_date = "2018-07-17";
+    $current_date = date("Y-m-d");
     $checkdate = $this->container->get('lw_louvre.checkdate');
     $result = $checkdate->getTotalBillets($current_date);
     $random = random_bytes(5);
     echo"<pre>";
     echo "<br />";
     // foreach ($result as $value) {
-    dump($random);
+    dump($current_date);
     // }
               
    die();
@@ -85,7 +85,7 @@ class LouvreController extends Controller
      $em = $this->getDoctrine()->getManager();
      $em->persist($session->get('booking'));
      $em->flush(); 
-      $this->addFlash('info','Votre reservation a été éffectuée avec success veuillez consulter votre mail !!!');
+     $this->addFlash('info','Votre reservation a été éffectuée avec success veuillez consulter votre mail !!!');
       return $this->redirectToRoute('lw_louvre_homepage');
     } 
      $session->get('booking')->setCodeReservation(random_int(0,1000));
