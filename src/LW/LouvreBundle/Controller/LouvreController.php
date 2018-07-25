@@ -5,8 +5,6 @@ use Symfony\Component\HttpFoundation\Request;
 use LW\LouvreBundle\Entity\Orders;
 use LW\LouvreBundle\Entity\Ticket;
 use LW\LouvreBundle\Form\OrdersType;
-// Importation du fichier nécéssaire pour charger automatique les fichiers de stripe
-require_once('../vendor/autoload.php');
 
 class LouvreController extends Controller
 {
@@ -67,15 +65,14 @@ class LouvreController extends Controller
     $prixTotal = intval($prixTotal);
     $session->get('booking')->setPrice($prixTotal);
 
-    //debut code stripe
-    \Stripe\Stripe::setApiKey('sk_test_MgZ8tjk4OcFvwrkTCP9NHmji');
-    $responseStripe = \Stripe\Charge::create(['amount' => $session->get('booking')->getPrice()*100,
-                                'currency' => 'EUR',
-                                'description' => 'payement du billet sur le site du musée de louvre',
-                                'source' => $request->request->get('stripeToken')]);
-    if ($responseStripe == null OR empty($responseStripe))
+    //debut code pour stripe
+    $serviceStripe = $this->container->get('louvre_louvre.stripe');
+    $responseStripe = $serviceStripe->stripePayment($request->request->get('stripeToken'),$session->get('booking')->getPrice());
+
+    if (empty($responseStripe))
     {
       $this->addFlash('notice','Erreur votre reservation n\'a pas été pris en compte veuillez recommancez !!!');
+      $session->remove('booking');
       return $this->redirectToRoute('lw_louvre_billeterie');
     }
     else 
@@ -88,20 +85,7 @@ class LouvreController extends Controller
      $this->addFlash('info','Votre reservation a été éffectuée avec success veuillez consulter votre mail !!!');
       return $this->redirectToRoute('lw_louvre_homepage');
     } 
-     $session->get('booking')->setCodeReservation(random_int(0,1000));
-     $session->get('booking')->setEmail('landrywabo8@gmail.com');
-     //envoie des billets à l'utilisateur
-     $serviceSendOrders = $this->container->get('lw_louvre.sendOrders');
-     $serviceSendOrders->sendOrders($session->get('booking'));
-     //debut pour l'enregistrement en base de données
-     $em = $this->getDoctrine()->getManager();
-     $em->persist($session->get('booking'));
-     $em->flush();
-    echo"<pre>";
-    echo "<br />";
-    dump($session->get('booking')->getvisiteDate());
-              
-   die();
+    
 
   }
 }

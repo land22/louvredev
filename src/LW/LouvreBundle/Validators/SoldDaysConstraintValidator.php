@@ -25,7 +25,7 @@ class SoldDaysConstraintValidator extends ConstraintValidator
         // On calcule le nombre total de ticket en BDD
         $totalTickets = 0;
         if ( $visiteDate ) {
-            $dateTimeVisite      = new \DateTime($visiteDate);
+            $dateTimeVisite      = $visiteDate;
             $totalTickets        = 0;
             $ordersOfCurrentDay  = $this->em->getRepository('LWLouvreBundle:Orders')->findBy(array('createdDate'=> $dateTimeVisite ));
             if ( !empty($ordersOfCurrentDay) ) {

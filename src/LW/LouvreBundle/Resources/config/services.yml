@@ -1,3 +1,5 @@
+parameters:
+    stripe_public_key: sk_test_MgZ8tjk4OcFvwrkTCP9NHmji
 services:
 #    lw_louvre.example:
 #        class: LW\LouvreBundle\Example
@@ -16,5 +18,13 @@ services:
        arguments:
         - "@mailer"
         - %locale%
-        
+    sold_days_validator:
+        class: LW\LouvreBundle\Validators\SoldDaysConstraintValidator
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - name: validator.constraint_validator
+    louvre_louvre.stripe:
+        class: LW\LouvreBundle\Services\StripeService
+        arguments: ['%stripe_public_key%']
 
