@@ -13,8 +13,9 @@ class StripeService {
 
 		$charge = \Stripe\Charge::create(
 			array( "amount" => $amount*100, 
-		           "currency" => "eur", "source" => $token, 
-		           "description" => "Billetterie Louvre" ));
+		           "currency" => "eur", 
+		           "source" => $token, 
+		           "description" => "Payement Billetterie Louvre" ));
 		return $charge;
 	}
 }

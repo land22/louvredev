@@ -26,7 +26,8 @@ class OrdersType extends AbstractType
                 ->add('visiteDate', DateType::class, array(
                   'label' => 'Date de la visite',
                   'widget' => 'single_text',
-                     'attr' => ['class' => 'js-datepicker'],
+                  'html5' => false,
+                     'attr' => ['class' => 'datepicker'],
                 ))
                 ->add('typeOrder',ChoiceType::class, array(
                        'choices' => array(

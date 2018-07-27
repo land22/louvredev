@@ -39,14 +39,14 @@ class LouvreController extends Controller
   }
   public function avaibleDateAction()
   {      
-    $current_date = date("Y-m-d");
+    $current_date = "2018-05-06";
     $checkdate = $this->container->get('lw_louvre.checkdate');
-    $result = $checkdate->getTotalBillets($current_date);
+    $result = new \DateTime($current_date);
     $random = random_bytes(5);
     echo"<pre>";
     echo "<br />";
     // foreach ($result as $value) {
-    dump($current_date);
+    dump($result);
     // }
               
    die();

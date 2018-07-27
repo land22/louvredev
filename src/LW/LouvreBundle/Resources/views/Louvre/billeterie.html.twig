@@ -26,7 +26,7 @@
 				<div class="form-group">
 					{{ form_label(form.visiteDate, "Date de votre visite", {'label_attr': {'class': 'datevisitlabel'}}) }} 
 					{{ form_errors(form.visiteDate) }} 
-					{{ form_widget(form.visiteDate,{'attr': {'class': 'datepicker form-controlx date_vit'}}) }}
+					{{ form_widget(form.visiteDate) }}
 				</div>
 				<div class="form-group">
 					{{ form_label(form.typeOrder, "Type de journée", {'label_attr': {'class': 'typelabel'}}) }}
@@ -77,20 +77,17 @@
 {%block javascript%}
     {{ parent() }}
     <script src="{{ asset('assets/js/datePicker.js')}}"></script>
-    <script src="{{ asset('assets/js/checkDate.js')}}"></script>
     <script>
-        /*var date = new Date();
+        var date = new Date();
         $('.datepicker').datepicker({
+          format: "dd/mm/yyyy",
+          default: 'dd/mm/yyyy',
           startDate: '-3d',
           startDate: date,
-          daysOfWeekDisabled: "2"
-        });*/
-    $(document).ready(function() {
-        // you may need to change this code if you are not using Bootstrap Datepicker
-        $('.js-datepicker').datepicker({
-            format: 'yyyy-mm-dd'
+          language: "fr",
+          datesDisabled: ['11/01/'+date.getFullYear(), '12/25/'+date.getFullYear(),'05/01/'+date.getFullYear()],
+          daysOfWeekDisabled: "2,0"
         });
-    });
     </script>
 
     <script>
