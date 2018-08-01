@@ -5,16 +5,16 @@ services:
 #        class: LW\LouvreBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
 #lien service pour vérifier la disponibilité de la date
-    lw_louvre.checkdate:
-        class: LW\LouvreBundle\Services\lwCheckdate
+    louvre.checkdate:
+        class: LW\LouvreBundle\Services\Checkdate
         arguments:
         - "@doctrine.orm.entity_manager"
 #lien service pour calculer les tarif
-    lw_louvre.tarifDate:
-        class: LW\LouvreBundle\Services\LWtarifDate
+    louvre.tarifDate:
+        class: LW\LouvreBundle\Services\TarifDate
 #service pour envoyer par mail les billets
-    lw_louvre.sendOrders:
-       class: LW\LouvreBundle\Services\LWsendOrders
+    louvre.sendOrders:
+       class: LW\LouvreBundle\Services\SendOrders
        arguments:
         - "@mailer"
         - %locale%

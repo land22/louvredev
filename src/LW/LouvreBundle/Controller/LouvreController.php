@@ -24,10 +24,10 @@ class LouvreController extends Controller
       if($form->isValid())
       {
       //service pour calculer les tarifs des billets
-        $serviceTarifDate = $this->container->get('lw_louvre.tarifDate');
+        $serviceTarifDate = $this->container->get('louvre.tarifDate');
         $serviceTarifDate->calculTarif($booking);
         //service pour calculer le nombre total des billets
-        $checkdate = $this->container->get('lw_louvre.checkdate');
+        $checkdate = $this->container->get('louvre.checkdate');
         $session = $request->getSession();
         $session->set('booking', $booking);
         return $this->redirectToRoute('lw_louvre_stripe_form');

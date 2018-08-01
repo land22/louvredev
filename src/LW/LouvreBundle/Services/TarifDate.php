@@ -3,7 +3,7 @@ namespace LW\LouvreBundle\Services;
 
 
 
-class LWtarifDate{
+class TarifDate{
    /**
    * Vérifie si le texte est un spam ou non
    *

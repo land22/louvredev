@@ -4,6 +4,7 @@ namespace LW\LouvreBundle\Validators;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Validator\Constraint;
 
 
 class SoldDaysConstraintValidator extends ConstraintValidator
@@ -19,7 +20,7 @@ class SoldDaysConstraintValidator extends ConstraintValidator
         $this->em = $entityManager;
     }
     
-    public function validate($visiteDate, $constraint)
+    public function validate($visiteDate, Constraint $constraint)
     {
         
         // On calcule le nombre total de ticket en BDD
@@ -37,7 +38,7 @@ class SoldDaysConstraintValidator extends ConstraintValidator
             }
         }        
         
-        if ( $totalTickets > 1000 || $dateTimeVisite < date("Y-m-d") ) {
+        if ( $totalTickets > 1000 ) {
             $this->context->buildViolation($constraint->message)->atPath('type')->addViolation();
         }
     }
