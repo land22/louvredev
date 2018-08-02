@@ -66,7 +66,7 @@ class TicketType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'LW\LouvreBundle\Entity\Ticket'
+            'data_class' => 'LW\LouvreBundle\Entity\Tickets'
         ));
     }
 
