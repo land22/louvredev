@@ -68,7 +68,7 @@ class Orders
     private $email;
     
     /**
-     *@ORM\OneToMany(targetEntity="LW\LouvreBundle\Entity\Ticket", mappedBy="orders", cascade={"persist", "remove"})
+     *@ORM\OneToMany(targetEntity="LW\LouvreBundle\Entity\Tickets", mappedBy="orders", cascade={"persist", "remove"})
      *
      * 
      */
