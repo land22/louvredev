@@ -21,7 +21,7 @@
 			<div id="form_louvre">
 				<div class="form-group">
 			    	<label for="nbBillets">Choisissez un mombre de billets</label>
-			    	<input type="number" class="form-control nbr_billet" id="nbBillets" aria-describedby="Saisir le nombre de billets" min="1" placeholder="Saisir le nombre de billets" name ="nbr_billet" required>			    	
+			    	<input type="number" class="form-control nbr_billet" id="nbBillets" aria-describedby="Saisir le nombre de billets" min="1" max="1000" placeholder="Saisir le nombre de billets" name ="nbr_billet" required>			    	
 			  	</div>
 				<div class="form-group">
 					{{ form_label(form.visiteDate, "Date de votre visite", {'label_attr': {'class': 'datevisitlabel'}}) }} 
@@ -40,13 +40,13 @@
 				</div>
                                 <br />
                                 <br />
-				<button id="add_billet" class="btn btn-default">Enregistrer les billets</button>
+				<button id="add_billet" class="btn btn-default">Passer à l'étape suivante</button>
 				<div id="billets" style = "display:none;">
 					
 				</div>
 				<div class="col-sm-12" style = "display:none;" id = "bloc_save">
 					{# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
-					{{ form_widget(form.save, {'attr': {'class': 'step1 btn btn-primary'}}) }} 
+					{{ form_widget(form.Continuer, {'attr': {'class': 'step1 btn btn-primary'}}) }} 
 		       </div>
 			</div>
 			
