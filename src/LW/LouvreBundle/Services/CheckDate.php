@@ -2,7 +2,7 @@
 namespace LW\LouvreBundle\Services;
 use Doctrine\ORM\EntityManager;
 
-class Checkdate
+class CheckDate
 {
 
 	/**

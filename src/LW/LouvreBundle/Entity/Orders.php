@@ -34,7 +34,6 @@ class Orders
      * @var \DateTime
      *
      * @ORM\Column(name="visite_date", type="date", nullable=true)
-     * @SoldDaysConstraint()
      */
     private $visiteDate;
     

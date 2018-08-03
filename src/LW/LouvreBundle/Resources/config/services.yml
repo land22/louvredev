@@ -6,7 +6,7 @@ services:
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
 #lien service pour vérifier la disponibilité de la date
     louvre.checkdate:
-        class: LW\LouvreBundle\Services\Checkdate
+        class: LW\LouvreBundle\Services\CheckDate
         arguments:
         - "@doctrine.orm.entity_manager"
 #lien service pour calculer les tarif

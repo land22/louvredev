@@ -3,7 +3,7 @@ namespace LW\LouvreBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use LW\LouvreBundle\Entity\Orders;
-use LW\LouvreBundle\Entity\Ticket;
+use LW\LouvreBundle\Entity\Tickets;
 use LW\LouvreBundle\Form\OrdersType;
 
 class LouvreController extends Controller
