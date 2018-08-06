@@ -2,6 +2,7 @@
 namespace LW\LouvreBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use LW\LouvreBundle\Entity\Orders;
 use LW\LouvreBundle\Entity\Tickets;
 use LW\LouvreBundle\Form\OrdersType;
@@ -37,19 +38,14 @@ class LouvreController extends Controller
             'form' => $form->createView(),
         ));
   }
-  public function avaibleDateAction()
+  //Action pour vérifier la date disponible
+  public function avaibleDateAction($date_visite)
   {      
-    $current_date = "2018-05-06";
-    $checkdate = $this->container->get('lw_louvre.checkdate');
-    $result = new \DateTime($current_date);
-    $random = random_bytes(5);
-    echo"<pre>";
-    echo "<br />";
-    // foreach ($result as $value) {
-    dump($result);
-    // }
-              
-   die();
+    $checkdate = $this->container->get('louvre.checkdate');
+    $totalBillet = $checkdate->getTotalBillets($date_visite);
+
+    $response = new JsonResponse(array('totalBillet' => $totalBillet));
+    return $response;
   }
     //Action pour le formulaire de stripe
   public function stripeFormAction(Request $request)

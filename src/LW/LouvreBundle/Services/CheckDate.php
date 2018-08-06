@@ -28,7 +28,7 @@ class CheckDate
             if ( !empty($ordersOfCurrentDay) ) {
                 foreach ( $ordersOfCurrentDay as $row )
                 {
-                    $billets = $this->em->getRepository('LWLouvreBundle:Ticket')->findBy( array('order'=> $row->getId()) );
+                    $billets = $this->em->getRepository('LWLouvreBundle:Tickets')->findBy( array('order'=> $row->getId()) );
                     $totalTickets += sizeof($billets);
                 }
             }
