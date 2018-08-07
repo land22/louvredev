@@ -73,13 +73,17 @@ class LouvreController extends Controller
     }
     else 
     { //en cas de reussite on enregistre en base de donnée
-     $session->get('booking')->setCodeReservation(random_int(0,1000));
-     $session->get('booking')->setEmail('landrywabo8@gmail.com');
+      dump($request->request->get('email_order'));
+      die();
+     /*$session->get('booking')->setCodeReservation(random_int(0,1000));
+     $session->get('booking')->setEmail($request->request->get('email_order'));
      $em = $this->getDoctrine()->getManager();
      $em->persist($session->get('booking'));
      $em->flush(); 
+     $serviceMailer = $this->container->get('louvre.sendOrders');
+     $serviceMailer->sendOrders($session->get('booking'));
      $this->addFlash('info','Votre reservation a été éffectuée avec success veuillez consulter votre mail !!!');
-      return $this->redirectToRoute('lw_louvre_homepage');
+      return $this->redirectToRoute('lw_louvre_homepage');*/
     } 
     
 
