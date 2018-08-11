@@ -17,7 +17,6 @@ services:
        class: LW\LouvreBundle\Services\SendOrders
        arguments:
         - "@mailer"
-        - %locale%
     sold_days_validator:
         class: LW\LouvreBundle\Validators\SoldDaysConstraintValidator
         arguments:

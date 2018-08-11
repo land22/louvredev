@@ -45,7 +45,7 @@ class LouvreController extends Controller
     $totalBillet = $checkdate->getTotalBillets($date_visite);
     $code1 = random_bytes(1);
     $code = sha1($code1);
-    $code = substr($code, 0,9);
+    $code = md5(uniqid().time());
     dump($code);
     die();
 
@@ -82,13 +82,13 @@ class LouvreController extends Controller
       $codeReservation = md5($code);
       $codeReservation = substr($codeReservation , 0,9);*/
       $codeReservation = md5(uniqid().time());
-      $codeReservation = strtoupper($codeReservation);
+      $codeReservation = strtoupper(substr($codeReservation , 0,9));
 
      $session->get('booking')->setCodeReservation($codeReservation);
      $session->get('booking')->setEmail($request->request->get('email_order'));
      $em = $this->getDoctrine()->getManager();
-     $em->persist($session->get('booking'));
-     $em->flush(); 
+     /*$em->persist($session->get('booking'));
+     $em->flush(); */
      $serviceMailer = $this->container->get('louvre.sendOrders');
      $serviceMailer->sendOrders($session->get('booking'));
      $this->addFlash('info','Votre reservation a été éffectuée avec success veuillez consulter votre mail !!!');
