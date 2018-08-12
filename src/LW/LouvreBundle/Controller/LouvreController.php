@@ -43,9 +43,8 @@ class LouvreController extends Controller
   {      
     //$checkdate = $this->container->get('louvre.checkdate');
     //$totalBillet = $checkdate->getTotalBillets($date_visite);
-    $date = new \DateTime();
-    $var = $date->format('d-m');
-    dump($var);
+    $date = new \DateTime('Y');
+    dump($date );
     die();
 
     $response = new JsonResponse(array('totalBillet' => $totalBillet));
