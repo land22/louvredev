@@ -12,12 +12,11 @@ class PublicHolyDaysConstraintValidator extends ConstraintValidator
     
     public function validate($visiteDate, Constraint $constraint)
     {
-        
-        // On calcule le nombre total de ticket en BDD
-        $totalTickets = 0;
+        $weekDay = $visiteDate->format('D');
+        $MonthDays = $visiteDate->format('d-m');
                 
         
-        if ( $totalTickets > 1000 ) {
+        if ( ($weekDay == "Sun") OR  ($weekDay == "Tue") OR ($MonthDays == "01-05") OR ($MonthDays == "01-11") OR ($MonthDays == "25-12")) {
             $this->context->buildViolation($constraint->message)->atPath('type')->addViolation();
         }
     }

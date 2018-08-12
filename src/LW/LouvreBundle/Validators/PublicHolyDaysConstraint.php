@@ -7,5 +7,6 @@ use Symfony\Component\Validator\Constraint;
  */
 class PublicHolyDaysConstraint extends Constraint
 {
+	
     public $message = "Désolez,vous ne pouvez pas reserver à cette date veuillez choisir une autre date !!!";
 }

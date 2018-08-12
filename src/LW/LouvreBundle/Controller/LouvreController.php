@@ -44,7 +44,7 @@ class LouvreController extends Controller
     //$checkdate = $this->container->get('louvre.checkdate');
     //$totalBillet = $checkdate->getTotalBillets($date_visite);
     $date = new \DateTime();
-    $var = $date->format('H');
+    $var = $date->format('d-m');
     dump($var);
     die();
 
@@ -54,7 +54,7 @@ class LouvreController extends Controller
     //Action pour le formulaire de stripe
   public function stripeFormAction(Request $request)
   { $session = $request->getSession();
-     
+
     return $this->render('LWLouvreBundle:Louvre:stripe_pay.html.twig');       
   }
   //Action pour le payement stripe
