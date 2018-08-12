@@ -39,14 +39,13 @@ class LouvreController extends Controller
         ));
   }
   //Action pour vérifier la date disponible
-  public function avaibleDateAction($date_visite)
+  public function avaibleDateAction()
   {      
-    $checkdate = $this->container->get('louvre.checkdate');
-    $totalBillet = $checkdate->getTotalBillets($date_visite);
-    $code1 = random_bytes(1);
-    $code = sha1($code1);
-    $code = md5(uniqid().time());
-    dump($code);
+    //$checkdate = $this->container->get('louvre.checkdate');
+    //$totalBillet = $checkdate->getTotalBillets($date_visite);
+    $date = new \DateTime();
+    $var = $date->format('H');
+    dump($var);
     die();
 
     $response = new JsonResponse(array('totalBillet' => $totalBillet));
@@ -54,7 +53,8 @@ class LouvreController extends Controller
   }
     //Action pour le formulaire de stripe
   public function stripeFormAction(Request $request)
-  {     
+  { $session = $request->getSession();
+     
     return $this->render('LWLouvreBundle:Louvre:stripe_pay.html.twig');       
   }
   //Action pour le payement stripe
@@ -62,6 +62,7 @@ class LouvreController extends Controller
   {
     //Ajouter la tva de 20% au prix total
     $session = $request->getSession();
+
     $prixTotal = $session->get('booking')->getPrice()*1.2;
     $prixTotal = intval($prixTotal);
     $session->get('booking')->setPrice($prixTotal);
@@ -78,9 +79,6 @@ class LouvreController extends Controller
     }
     else 
     { //en cas de reussite on enregistre en base de donnée
-      /*$code = random_bytes(1);
-      $codeReservation = md5($code);
-      $codeReservation = substr($codeReservation , 0,9);*/
       $codeReservation = md5(uniqid().time());
       $codeReservation = strtoupper(substr($codeReservation , 0,9));
 

@@ -17,12 +17,16 @@ services:
        class: LW\LouvreBundle\Services\SendOrders
        arguments:
         - "@mailer"
+#contrainte pour verifier le nombre de date
     sold_days_validator:
         class: LW\LouvreBundle\Validators\SoldDaysConstraintValidator
         arguments:
             - "@doctrine.orm.entity_manager"
         tags:
             - name: validator.constraint_validator
+
+
+#service pour stripe
     louvre_louvre.stripe:
         class: LW\LouvreBundle\Services\StripeService
         arguments: ['%stripe_public_key%']

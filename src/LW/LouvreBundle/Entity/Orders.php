@@ -5,6 +5,9 @@ namespace LW\LouvreBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use LW\LouvreBundle\Validators\SoldDaysConstraint;
+use LW\LouvreBundle\Validators\PassTimeDayConstraint;
+use LW\LouvreBundle\Validators\PublicHolyDaysConstraint;
+
 
 /**
  * Orders
@@ -34,6 +37,8 @@ class Orders
      * @var \DateTime
      *
      * @ORM\Column(name="visite_date", type="date", nullable=true)
+     * @PublicHolyDaysConstraint
+     * @SoldDaysConstraint
      */
     private $visiteDate;
     
@@ -42,6 +47,8 @@ class Orders
      * @var string
      *
      * @ORM\Column(name="type_order", type="string", length=15)
+     * @PassTimeDayConstraint
+     * 
      */
     private $typeOrder;
 

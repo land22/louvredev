@@ -64,10 +64,10 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: '%mailer_user%'
-    host: '%mailer_host%'
-    username: '%mailer_user%'
-    password: '%mailer_password%'
+    transport: smtp
+    host: smtp.mtnmail.com.cy
+    username: mtnfixed@mtnmail.com.cy 
+    password: mtnfixed 
     spool: { type: memory }
 #swiftmailer:
 #    transport: '%mailer_transport%'
