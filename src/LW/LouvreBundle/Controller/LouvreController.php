@@ -88,7 +88,7 @@ class LouvreController extends Controller
      $em->flush(); */
      $serviceMailer = $this->container->get('louvre.sendOrders');
      $serviceMailer->sendOrders($session->get('booking'));
-     $this->addFlash('info','Votre reservation a été éffectuée avec success veuillez consulter votre mail !!!');
+     $this->addFlash('info','Votre reservation a été éffectuée avec success un mail vous a été envoyé à l\'adresse mail vous avez saisie qui fera foi de votre reservation !!!');
       return $this->redirectToRoute('lw_louvre_homepage');
     } 
     

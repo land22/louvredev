@@ -1,0 +1,13 @@
+{% extends "LWLouvreBundle::layout.html.twig" %}
+{%block head %}
+  <h4 class="alert alert-danger">Oops! Vous essayez d'acceder à une page qui n'existe pas</h3>
+
+  <h5 class="alert alert-danger">Notre application a retourné une erreur {{ status_code }} : {{ status_text }}.</h5>
+
+  <div class="alert alert-danger">
+    N'hésitez pas à contacter le webmaster du site pour corrger l'erreur.
+  </div>
+{%endblock%}
+{%block container%} 
+
+{%endblock%}
