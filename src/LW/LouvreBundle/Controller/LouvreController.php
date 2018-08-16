@@ -33,6 +33,7 @@ class LouvreController extends Controller
         $session->set('booking', $booking);
         return $this->redirectToRoute('lw_louvre_stripe_form');
       } 
+
     }
    return $this->render('LWLouvreBundle:Louvre:billeterie.html.twig', array(
             'form' => $form->createView(),
@@ -52,9 +53,15 @@ class LouvreController extends Controller
   }
     //Action pour le formulaire de stripe
   public function stripeFormAction(Request $request)
-  { $session = $request->getSession();
-
-    return $this->render('LWLouvreBundle:Louvre:stripe_pay.html.twig');       
+  {    $session = $request->getSession();
+    if ( $session->get('booking') == null OR empty($session->get('booking'))) {
+           return $this->redirectToRoute('lw_louvre_homepage');
+       }
+    else 
+    {
+    return $this->render('LWLouvreBundle:Louvre:stripe_pay.html.twig');  
+    } 
+          
   }
   //Action pour le payement stripe
   public function stripePaymentAction(Request $request)
@@ -89,6 +96,7 @@ class LouvreController extends Controller
      $serviceMailer = $this->container->get('louvre.sendOrders');
      $serviceMailer->sendOrders($session->get('booking'));
      $this->addFlash('info','Votre reservation a été éffectuée avec success un mail vous a été envoyé à l\'adresse mail vous avez saisie qui fera foi de votre reservation !!!');
+     $session->remove('booking');
       return $this->redirectToRoute('lw_louvre_homepage');
     } 
     
