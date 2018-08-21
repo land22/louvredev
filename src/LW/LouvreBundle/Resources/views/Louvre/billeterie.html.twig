@@ -14,40 +14,41 @@
    
 <div class="form">
 	
-			{{ form_start(form, {'attr': {'class': 'form-inline'}}) }} 
+			{{ form_start(form, {'attr': {'class': 'form-inlinex'}}) }} 
 			{# Les erreurs générales du formulaire. #} 
 			{{ form_errors(form) }}
 	
 			<div id="form_louvre">
 				<div class="form-group">
 			    	<label for="nbBillets">Choisissez un mombre de billets</label>
-			    	<input type="number" class="form-control nbr_billet" id="nbBillets" aria-describedby="Saisir le nombre de billets" min="1" max="1000" placeholder="Saisir le nombre de billets" name ="nbr_billet" required>			    	
+			    	<input type="number" class="form-control nbr_billet" id="nbBillets" aria-describedby="Saisir le nombre de billets" min="1" max="1000" value="{{ nbBillets }}" placeholder="Saisir le nombre de billets" name ="nbr_billet" required>			    	
 			  	</div>
-				<div class="form-group">
+				<div class="form-group" style="width: 100%;clear:both;">
+					{{ form_errors(form.visiteDate) }}
 					{{ form_label(form.visiteDate, "Date de votre visite", {'label_attr': {'class': 'datevisitlabel'}}) }} 
-				    {{ form_errors(form.visiteDate) }}
 					{{ form_widget(form.visiteDate) }}
 				</div>
-				<div class="form-group">
+				<div class="form-group" style="width: 100%;clear:both;">
 					{{ form_label(form.typeOrder, "Type de journée", {'label_attr': {'class': 'typelabel'}}) }}
 					{{ form_errors(form.typeOrder) }}
 					{{ form_widget(form.typeOrder, {'attr':	{'class': 'type_journee form-control','id':'type_journee'}}) }}
 				</div>
-				<div class="form-group" style="display: none;">
+				<div class="form-group" style="display: none;width: 100%;clear:both;">
 					{{ form_label(form.email, "Votre adresse email", {'label_attr': {'class': 'emaillabel'}}) }} 
 					{{ form_errors(form.email) }}
 					{{ form_widget(form.email, {'attr':{'class': 'form-control'}}) }}
 				</div>
                                 <br />
                                 <br />
-				<button id="add_billet" class="btn btn-default">Passer à l'étape suivante</button>
-				<div id="billets" style = "display:none;">
+				<!--<button id="add_billet" class="btn btn-default">Passer à l'étape suivante</button>-->
+				<div id="billets" style = "display:nonex;">
 					
 				</div>
 				<br />
 				<div class="col-sm-12" style = "display:none;" id = "bloc_save">
 					{# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
-					{{ form_widget(form.Continuer, {'attr': {'class': 'step1 btn btn-primary'}}) }} 
+					{#{{ form_widget(form.Continuer, {'attr': {'class': 'step1 btn btn-primary'}}) }} #}
+					{{ form_widget(form.Continuer, {'attr': {'class': 'btn btn-primary'}}) }}
 		       </div>
 			</div>
 			
@@ -90,5 +91,86 @@
           daysOfWeekDisabled: "2,0"
         });
     </script>
+
+    <script type="text/javascript">
+	  	$(document).ready(function() {
+	  		// on masque le label
+	  		$("#lw_louvrebundle_orders_tickets").parent().find("label").hide();
+	    	// On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
+	    	var $container = $('div#lw_louvrebundle_orders_tickets');
+	
+		    // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
+		    var index = $container.find(':input').length;
+		
+		    // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
+		    $('#nbBillets').change(function(e) {
+		        var totaltickets = $(this).val();
+		        $container.empty();
+		        index = 0
+		        for (var iter = 0; iter < totaltickets; iter++) {
+		    	    addTicket($container);
+		        }
+		        $("#bloc_save").show();
+		      
+		      e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+		      return false;
+		    });
+		    
+		    // La fonction qui ajoute un formulaire TicketType
+		    function addTicket($container) {
+		      // Dans le contenu de l'attribut « data-prototype », on remplace :
+		      // - le texte "__name__label__" qu'il contient par le label du champ
+		      // - le texte "__name__" qu'il contient par le numéro du champ
+		      var template = $container.attr('data-prototype')
+		        .replace(/__name__label__/g, 'Ticket n°' + (index+1))
+		        .replace(/__name__/g,        index)
+		      ;
+		
+		      // On crée un objet jquery qui contient ce template
+		      var $prototype = $(template);
+		      //var $prototype = $("#billets");
+		
+		      // On ajoute au prototype un lien pour pouvoir supprimer la catégorie
+		      addDeleteLink($prototype);
+		
+		      // On ajoute le prototype modifié à la fin de la balise <div>
+		      //$container.append($prototype);
+		      $("#billets").append($prototype);
+		
+		      // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
+		      index++;
+		    }
+	
+	    // La fonction qui ajoute un lien de suppression d'un ticket
+	    function addDeleteLink($prototype) {
+	      // Création du lien
+	      var $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+	
+	      // Ajout du lien
+	      $prototype.append($deleteLink);
+	
+	      // Ajout du listener sur le clic du lien pour effectivement supprimer la catégorie
+	      $deleteLink.click(function(e) {
+	        $prototype.remove();
+	
+	        e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+	        return false;
+	      });
+	    }
+	  });   
+  </script>
+  
+  <style>
+  	.help-block {
+  		background-color: #f2dede;
+	    border-color: #ebcccc;
+	    color: #a94442;
+	    padding: .75rem 1.25rem;
+	    margin-bottom: 1rem;
+	    border: 1px solid transparent;
+	    border-radius: .25rem;
+  	}
+  </style>
+
 
     {%endblock%}

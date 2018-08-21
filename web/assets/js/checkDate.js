@@ -1,4 +1,4 @@
-$(function() {
+/*$(function() {
 	     	  //varition de la l'option journée et demi journée
 	     	  var date_jour = new Date();
               if (date_jour.getHours() > 13) {
@@ -40,4 +40,4 @@ $(function() {
 	            }
 
 	        });
-        });
+        });*/

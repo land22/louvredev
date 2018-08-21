@@ -37,6 +37,7 @@ class LouvreController extends Controller
     }
    return $this->render('LWLouvreBundle:Louvre:billeterie.html.twig', array(
             'form' => $form->createView(),
+            'nbBillets' => $request->get('nbr_billet',''),
         ));
   }
   //Action pour vérifier la date disponible
@@ -68,6 +69,10 @@ class LouvreController extends Controller
   {
     //Ajouter la tva de 20% au prix total
     $session = $request->getSession();
+    if ( $session->get('booking') == null ) {
+            return $this->redirectToRoute('lw_louvre_homepage');
+        }
+
 
     $prixTotal = $session->get('booking')->getPrice()*1.2;
     $prixTotal = intval($prixTotal);
@@ -96,7 +101,7 @@ class LouvreController extends Controller
      $serviceMailer = $this->container->get('louvre.sendOrders');
      $serviceMailer->sendOrders($session->get('booking'));
      $this->addFlash('info','Votre reservation a été éffectuée avec success un mail vous a été envoyé à l\'adresse mail vous avez saisie qui fera foi de votre reservation !!!');
-     $session->remove('booking');
+     $session->clear();
       return $this->redirectToRoute('lw_louvre_homepage');
     } 
     
