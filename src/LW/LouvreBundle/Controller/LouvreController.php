@@ -9,11 +9,19 @@ use LW\LouvreBundle\Form\OrdersType;
 
 class LouvreController extends Controller
 {
+  /**
+   * 
+   * @return type
+   */
   public function indexAction()
   {
     return $this->render('LWLouvreBundle:Louvre:index.html.twig');
   }
-
+  /**
+   * 
+   * @param Request $request
+   * @return type
+   */
   public function billeterieAction(Request $request)
   {
     // on va générer notre formulaire
@@ -40,7 +48,10 @@ class LouvreController extends Controller
             'nbBillets' => $request->get('nbr_billet',''),
         ));
   }
-  //Action pour vérifier la date disponible
+  /**
+   * 
+   * @return JsonResponse
+   */
   public function avaibleDateAction()
   {      
     //$checkdate = $this->container->get('louvre.checkdate');
@@ -52,7 +63,11 @@ class LouvreController extends Controller
     $response = new JsonResponse(array('totalBillet' => $totalBillet));
     return $response;
   }
-    //Action pour le formulaire de stripe
+    /**
+     * 
+     * @param Request $request
+     * @return type
+     */
   public function stripeFormAction(Request $request)
   {    $session = $request->getSession();
     if ( $session->get('booking') == null OR empty($session->get('booking'))) {
@@ -64,7 +79,11 @@ class LouvreController extends Controller
     } 
           
   }
-  //Action pour le payement stripe
+  /**
+   * 
+   * @param Request $request
+   * @return type
+   */
   public function stripePaymentAction(Request $request)
   {
     //Ajouter la tva de 20% au prix total

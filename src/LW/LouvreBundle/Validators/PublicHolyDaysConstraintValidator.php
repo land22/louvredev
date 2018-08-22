@@ -8,7 +8,11 @@ use Symfony\Component\Validator\Constraint;
 class PublicHolyDaysConstraintValidator extends ConstraintValidator
 {
     
-    
+    /**
+     * 
+     * @param type $visiteDate
+     * @param Constraint $constraint
+     */
     
     public function validate($visiteDate, Constraint $constraint)
     {  //recupération du jour de la semaine choisi 

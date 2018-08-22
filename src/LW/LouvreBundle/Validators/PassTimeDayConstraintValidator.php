@@ -9,7 +9,11 @@ class PassTimeDayConstraintValidator extends ConstraintValidator
 {
     
     
-    
+    /**
+     * 
+     * @param type $typeOrder
+     * @param Constraint $constraint
+     */
     public function validate($typeOrder, Constraint $constraint)
     {
         
