@@ -8,15 +8,14 @@ use LW\LouvreBundle\Validators\SoldDaysConstraint;
 use LW\LouvreBundle\Validators\PassTimeDayConstraint;
 use LW\LouvreBundle\Validators\PublicHolyDaysConstraint;
 
-
 /**
  * Orders
  *
  * @ORM\Table(name="orders")
  * @ORM\Entity(repositoryClass="LW\LouvreBundle\Repository\OrdersRepository")
  */
-class Orders
-{
+class Orders {
+
     /**
      * @var int
      *
@@ -41,7 +40,6 @@ class Orders
      * @SoldDaysConstraint
      */
     private $visiteDate;
-    
 
     /**
      * @var string
@@ -72,9 +70,9 @@ class Orders
      * @ORM\Column(name="email", type="string", length=30)
      */
     private $email;
-    
+
     /**
-     *@ORM\OneToMany(targetEntity="LW\LouvreBundle\Entity\Tickets", mappedBy="orders", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="LW\LouvreBundle\Entity\Tickets", mappedBy="orders", cascade={"persist", "remove"})
      *
      * 
      */
@@ -85,8 +83,7 @@ class Orders
      *
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -97,8 +94,7 @@ class Orders
      *
      * @return Orders
      */
-    public function setCreatedDate($createdDate)
-    {
+    public function setCreatedDate($createdDate) {
         $this->createdDate = $createdDate;
 
         return $this;
@@ -109,8 +105,7 @@ class Orders
      *
      * @return \DateTime
      */
-    public function getCreatedDate()
-    {
+    public function getCreatedDate() {
         return $this->createdDate;
     }
 
@@ -121,8 +116,7 @@ class Orders
      *
      * @return Orders
      */
-    public function setVisiteDate($visiteDate)
-    {
+    public function setVisiteDate($visiteDate) {
         $this->visiteDate = $visiteDate;
 
         return $this;
@@ -133,8 +127,7 @@ class Orders
      *
      * @return \DateTime
      */
-    public function getVisiteDate()
-    {
+    public function getVisiteDate() {
         return $this->visiteDate;
     }
 
@@ -145,8 +138,7 @@ class Orders
      *
      * @return Orders
      */
-    public function setTypeOrder($typeOrder)
-    {
+    public function setTypeOrder($typeOrder) {
         $this->typeOrder = $typeOrder;
 
         return $this;
@@ -157,8 +149,7 @@ class Orders
      *
      * @return string
      */
-    public function getTypeOrder()
-    {
+    public function getTypeOrder() {
         return $this->typeOrder;
     }
 
@@ -169,8 +160,7 @@ class Orders
      *
      * @return Orders
      */
-    public function setPrice($price)
-    {
+    public function setPrice($price) {
         $this->price = $price;
 
         return $this;
@@ -181,8 +171,7 @@ class Orders
      *
      * @return float
      */
-    public function getPrice()
-    {
+    public function getPrice() {
         return $this->price;
     }
 
@@ -193,8 +182,7 @@ class Orders
      *
      * @return Orders
      */
-    public function setCodeReservation($codeReservation)
-    {
+    public function setCodeReservation($codeReservation) {
         $this->codeReservation = $codeReservation;
 
         return $this;
@@ -205,8 +193,7 @@ class Orders
      *
      * @return string
      */
-    public function getCodeReservation()
-    {
+    public function getCodeReservation() {
         return $this->codeReservation;
     }
 
@@ -217,8 +204,7 @@ class Orders
      *
      * @return Orders
      */
-    public function setEmail($email)
-    {
+    public function setEmail($email) {
         $this->email = $email;
 
         return $this;
@@ -229,15 +215,14 @@ class Orders
      *
      * @return string
      */
-    public function getEmail()
-    {
+    public function getEmail() {
         return $this->email;
     }
+
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->tickets = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -248,21 +233,20 @@ class Orders
      *
      * @return Orders
      */
-   /* public function addTicket(\LWLouvreBundle\Entity\Ticket $ticket)
-    {
-        $this->tickets[] = $ticket;
-        $ticket->setOrder($this);
+    /* public function addTicket(\LWLouvreBundle\Entity\Ticket $ticket)
+      {
+      $this->tickets[] = $ticket;
+      $ticket->setOrder($this);
 
-        return $this;
-    }*/
+      return $this;
+      } */
 
     /**
      * Remove ticket
      *
      * @param \LWLouvreBundle\Entity\Ticket $ticket
      */
-    public function removeTicket($ticket)
-    {
+    public function removeTicket($ticket) {
         var_dump($ticket);
         die();
         $this->tickets->removeElement($ticket);
@@ -273,8 +257,8 @@ class Orders
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getTickets()
-    {
+    public function getTickets() {
         return $this->tickets;
     }
+
 }

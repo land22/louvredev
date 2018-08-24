@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="ticket")
  * @ORM\Entity(repositoryClass="LW\LouvreBundle\Repository\TicketRepository")
  */
-class Tickets
-{
+class Tickets {
+
     /**
      * @var int
      *
@@ -56,33 +56,30 @@ class Tickets
      */
     private $reduction;
 
-     /**
+    /**
      * @ORM\Column(name="reduit", type="boolean")
      */
     private $reduit = true;
-   
-     /**
+
+    /**
      * @var float
      *
      * @ORM\Column(name="price", type="float")
      */
     private $price;
 
-
-     /**
+    /**
      * @ORM\ManyToOne(targetEntity="LW\LouvreBundle\Entity\Orders", inversedBy="ticket", cascade="persist")
      * @ORM\JoinColumn(name="order_id", referencedColumnName="id")
-    */
-      private $order;
-
+     */
+    private $order;
 
     /**
      * Get id
      *
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -93,8 +90,7 @@ class Tickets
      *
      * @return Ticket
      */
-    public function setFirstname($firstname)
-    {
+    public function setFirstname($firstname) {
         $this->firstname = $firstname;
 
         return $this;
@@ -105,8 +101,7 @@ class Tickets
      *
      * @return string
      */
-    public function getFirstname()
-    {
+    public function getFirstname() {
         return $this->firstname;
     }
 
@@ -117,8 +112,7 @@ class Tickets
      *
      * @return Ticket
      */
-    public function setLastname($lastname)
-    {
+    public function setLastname($lastname) {
         $this->lastname = $lastname;
 
         return $this;
@@ -129,8 +123,7 @@ class Tickets
      *
      * @return string
      */
-    public function getLastname()
-    {
+    public function getLastname() {
         return $this->lastname;
     }
 
@@ -141,8 +134,7 @@ class Tickets
      *
      * @return Ticket
      */
-    public function setCountry($country)
-    {
+    public function setCountry($country) {
         $this->country = $country;
 
         return $this;
@@ -153,8 +145,7 @@ class Tickets
      *
      * @return string
      */
-    public function getCountry()
-    {
+    public function getCountry() {
         return $this->country;
     }
 
@@ -165,8 +156,7 @@ class Tickets
      *
      * @return Ticket
      */
-    public function setBirthday($birthday)
-    {
+    public function setBirthday($birthday) {
         $this->birthday = $birthday;
 
         return $this;
@@ -177,8 +167,7 @@ class Tickets
      *
      * @return \DateTime
      */
-    public function getBirthday()
-    {
+    public function getBirthday() {
         return $this->birthday;
     }
 
@@ -189,8 +178,7 @@ class Tickets
      *
      * @return Ticket
      */
-    public function setReduction($reduction)
-    {
+    public function setReduction($reduction) {
         $this->reduction = $reduction;
 
         return $this;
@@ -201,8 +189,7 @@ class Tickets
      *
      * @return float
      */
-    public function getReduction()
-    {
+    public function getReduction() {
         return $this->reduction;
     }
 
@@ -213,8 +200,7 @@ class Tickets
      *
      * @return Ticket
      */
-    public function setReduit($reduit)
-    {
+    public function setReduit($reduit) {
         $this->reduit = $reduit;
 
         return $this;
@@ -225,11 +211,10 @@ class Tickets
      *
      * @return boolean
      */
-    public function getReduit()
-    {
+    public function getReduit() {
         return $this->reduit;
     }
-    
+
     /**
      * Set price
      *
@@ -237,8 +222,7 @@ class Tickets
      *
      * @return Ticket
      */
-    public function setPrice($price)
-    {
+    public function setPrice($price) {
         $this->price = $price;
 
         return $this;
@@ -249,8 +233,7 @@ class Tickets
      *
      * @return float
      */
-    public function getPrice()
-    {
+    public function getPrice() {
         return $this->price;
     }
 
@@ -261,8 +244,7 @@ class Tickets
      *
      * @return Ticket
      */
-    public function setOrder(\LW\LouvreBundle\Entity\Orders $order)
-    {
+    public function setOrder(\LW\LouvreBundle\Entity\Orders $order) {
         $this->order = $order;
 
         return $this;
@@ -273,8 +255,8 @@ class Tickets
      *
      * @return \LW\LouvreBundle\Entity\Orders
      */
-    public function getOrder()
-    {
+    public function getOrder() {
         return $this->order;
     }
+
 }
