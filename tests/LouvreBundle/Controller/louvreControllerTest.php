@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  * @author wlandry
  */
 class louvreControllerTest extends WebTestCase {
-  
+ 
     public function testIndex() {
      $client = static::createClient();
      $client->request('GET','/');
