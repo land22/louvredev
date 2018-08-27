@@ -3,118 +3,118 @@
 
 {%block into %}
 
-<div class="alert tarification">
- <h3>Recapitulatif de votre commande</h3>
-  <table class="table table-bordered"> 
-                 
-         <thead> 
-                 <tr> 
-                <td>Billet No</td>
-                 <td>Propriétaire</td> 
-                 <td>Montant HT(€)</td> 
-                 <td>Montant TTC (€)</td> 
-                 </tr> 
-         </thead> 
-         <tbody>
+    <div class="alert tarification">
+        <h3>Recapitulatif de votre commande</h3>
+        <table class="table table-bordered"> 
 
-			 {% for liste , option in app.session.get('booking').tickets %}
-			 	<tr> 
-                 <td>{{ liste + 1 }}</td> 
-                 <td>{{ option.firstname }}  {{ option.lastname}}</td>
-                 <td>{{ option.price }}</td> 
-                 <td>{{ option.price * 1.2 }}</td> 
-                 </tr> 
-			  {% endfor %}
+            <thead> 
+                <tr> 
+                    <td>Billet No</td>
+                    <td>Propriétaire</td> 
+                    <td>Montant HT(€)</td> 
+                    <td>Montant TTC (€)</td> 
+                </tr> 
+            </thead> 
+            <tbody>
 
-	     </tbody>
-  </table>
+                {% for liste , option in app.session.get('booking').tickets %}
+                    <tr> 
+                        <td>{{ liste + 1 }}</td> 
+                        <td>{{ option.firstname }}  {{ option.lastname}}</td>
+                        <td>{{ option.price }}</td> 
+                        <td>{{ option.price * 1.2 }}</td> 
+                    </tr> 
+                {% endfor %}
 
-			   <p><strong>Montant total TTC de la commande</strong> {{ app.session.get('booking').price * 1.2 }} € </p>
-</div>
-  
+            </tbody>
+        </table>
+
+        <p><strong>Montant total TTC de la commande</strong> {{ app.session.get('booking').price * 1.2 }} € </p>
+    </div>
+
 {%endblock%}
 
 {%block container%}
 
-		<form action="/stripePayment" method="post" id="payment-form">
-			<legend>Formulaire de payment</legend>
-		  <div class="form-row" style="width:50%;" >
-		  	<div class="form-group">
-			    	<label for="nbBillets">Votre adresse mail</label>
-			    	<input type="email" class="form-control nbr_billet" id="nbBillets" aria-describedby="Saisir le nombre de billets" placeholder="Veuillez saisir votre adresse mail" name ="email_order">			    	
-			  	</div>
-		    <label for="card-element">
-		      Votre numero de carte de credit
-		    </label>
-		    <div id="card-element">
-		      <!-- A Stripe Element will be inserted here. -->
-		    </div>
+    <form action="/stripePayment" method="post" id="payment-form">
+        <legend>Formulaire de paiement</legend>
+        <div class="form-row" style="width:50%;" >
+            <div class="form-group">
+                <label for="nbBillets">Votre adresse mail</label>
+                <input type="email" class="form-control nbr_billet" id="nbBillets" aria-describedby="Saisir le nombre de billets" placeholder="Veuillez saisir votre adresse mail" name ="email_order">			    	
+            </div>
+            <label for="card-element">
+                Votre numero de carte de credit
+            </label>
+            <div id="card-element">
+                <!-- A Stripe Element will be inserted here. -->
+            </div>
 
-		    <!-- Used to display form errors. -->
-		    <div id="card-errors" role="alert"></div>
-		  </div>
+            <!-- Used to display form errors. -->
+            <div id="card-errors" role="alert"></div>
+        </div>
 
-		  <button class="btn btn-secondary">Effectuer votre payement</button>
-	    </form>
+        <button class="btn btn-secondary">Effectuer votre payement</button>
+    </form>
 {%endblock%}
 {%block javascript%}
-{{ parent() }}
-<script src="https://js.stripe.com/v3/"></script>
-<script>
-	var stripe = Stripe('pk_test_ChtHKVbOJJgKu50kIMexmctI');
-	var elements = stripe.elements();
-	// Custom styling can be passed to options when creating an Element.
-	var style = {
-	  base: {
-	    // Add your base input styles here. For example:
-	    fontSize: '16px',
-	    color: "#32325d",
-	  }
-	};
+    {{ parent() }}
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        var stripe = Stripe('pk_test_ChtHKVbOJJgKu50kIMexmctI');
+        var elements = stripe.elements();
+        // Custom styling can be passed to options when creating an Element.
+        var style = {
+            base: {
+                // Add your base input styles here. For example:
+                fontSize: '16px',
+                color: "#32325d",
+            }
+        };
 
-	// Create an instance of the card Element.
-	var card = elements.create('card', {style: style});
+        // Create an instance of the card Element.
+        var card = elements.create('card', {style: style});
 
-	// Add an instance of the card Element into the `card-element` <div>.
-	card.mount('#card-element');
-	card.addEventListener('change', function(event) {
-	  var displayError = document.getElementById('card-errors');
-	  if (event.error) {
-	    displayError.textContent = event.error.message;
-	  } else {
-	    displayError.textContent = '';
-	  }
-	  });
-      // Create a token or display an error when the form is submitted.
-		var form = document.getElementById('payment-form');
-		form.addEventListener('submit', function(event) {
-		  event.preventDefault();
+        // Add an instance of the card Element into the `card-element` <div>.
+        card.mount('#card-element');
+        card.addEventListener('change', function (event) {
+            var displayError = document.getElementById('card-errors');
+            if (event.error) {
+                displayError.textContent = event.error.message;
+            } else {
+                displayError.textContent = '';
+            }
+        });
+        // Create a token or display an error when the form is submitted.
+        var form = document.getElementById('payment-form');
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
 
-		  stripe.createToken(card).then(function(result) {
-		    if (result.error) {
-		      // Inform the customer that there was an error.
-		      var errorElement = document.getElementById('card-errors');
-		      errorElement.textContent = result.error.message;
-		    } else {
-		      // Send the token to your server.
-		      stripeTokenHandler(result.token);
-		    }
-		  });
-		});
+            stripe.createToken(card).then(function (result) {
+                if (result.error) {
+                    // Inform the customer that there was an error.
+                    var errorElement = document.getElementById('card-errors');
+                    errorElement.textContent = result.error.message;
+                } else {
+                    // Send the token to your server.
+                    stripeTokenHandler(result.token);
+                }
+            });
+        });
 
-		function stripeTokenHandler(token) {
-		  // Insert the token ID into the form so it gets submitted to the server
-		  var form = document.getElementById('payment-form');
-		  var hiddenInput = document.createElement('input');
-		  hiddenInput.setAttribute('type', 'hidden');
-		  hiddenInput.setAttribute('name', 'stripeToken');
-		  hiddenInput.setAttribute('value', token.id);
-		  form.appendChild(hiddenInput);
+        function stripeTokenHandler(token) {
+            // Insert the token ID into the form so it gets submitted to the server
+            var form = document.getElementById('payment-form');
+            var hiddenInput = document.createElement('input');
+            hiddenInput.setAttribute('type', 'hidden');
+            hiddenInput.setAttribute('name', 'stripeToken');
+            hiddenInput.setAttribute('value', token.id);
+            form.appendChild(hiddenInput);
 
-		  // Submit the form
-		  form.submit();
-		}
+            // Submit the form
+            form.submit();
+        }
 
-</script>
+    </script>
 
- {%endblock%}
+{%endblock%}

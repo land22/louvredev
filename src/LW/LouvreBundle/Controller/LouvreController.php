@@ -69,7 +69,7 @@ class LouvreController extends Controller {
      */
     public function stripeFormAction(Request $request) {
         $session = $request->getSession();
-        if ($session->get('booking') == null OR empty($session->get('booking'))) {
+        if ($session->get('booking') == null) {
             return $this->redirectToRoute('lw_louvre_homepage');
         } else {
             return $this->render('LWLouvreBundle:Louvre:stripe_pay.html.twig');
@@ -98,7 +98,7 @@ class LouvreController extends Controller {
         $responseStripe = $serviceStripe->stripePayment($request->request->get('stripeToken'), $session->get('booking')->getPrice());
 
         if (empty($responseStripe)) {
-            $this->addFlash('notice', 'Erreur votre reservation n\'a pas été pris en compte veuillez recommancez !!!');
+            $this->addFlash('notice', 'Erreur votre reservation n\'a pas été pris en compte. Merci de bien vouloir recommancer !!!');
             $session->remove('booking');
             return $this->redirectToRoute('lw_louvre_billeterie');
         } else { //en cas de reussite on enregistre en base de donnée
@@ -108,11 +108,13 @@ class LouvreController extends Controller {
             $session->get('booking')->setCodeReservation($codeReservation);
             $session->get('booking')->setEmail($request->request->get('email_order'));
             $em = $this->getDoctrine()->getManager();
-            /* $em->persist($session->get('booking'));
-              $em->flush(); */
+              $em->persist($session->get('booking'));
+              $em->flush(); 
             $serviceMailer = $this->container->get('louvre.sendOrders');
             $serviceMailer->sendOrders($session->get('booking'));
-            $this->addFlash('info', 'Votre reservation a été éffectuée avec success un mail vous a été envoyé à l\'adresse mail vous avez saisie qui fera foi de votre reservation !!!');
+            $this->addFlash('info', 'Votre réservation a bien été effectuée. 
+Un mail vous a été envoyé à l\'adresse email précédemment indiquée.
+A très bientôt. !!!');
             $session->clear();
             return $this->redirectToRoute('lw_louvre_homepage');
         }
