@@ -13,7 +13,3 @@ lw_louvre_stripe_payment:
     path:     /stripePayment
     defaults: { _controller: LWLouvreBundle:Louvre:stripePayment }
 
-lw_louvre_avaible_date:
-    path:     /avaible_date/
-    defaults: { _controller: LWLouvreBundle:Louvre:avaibleDate }
-

@@ -71,8 +71,8 @@ class TicketType extends AbstractType {
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix() {
+/*    public function getBlockPrefix() {
         return 'lw_louvrebundle_ticket';
     }
-
+*/
 }

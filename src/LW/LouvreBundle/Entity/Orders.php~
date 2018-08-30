@@ -227,15 +227,19 @@ class Orders {
     }
 
     /**
-     * 
-     * @param \LW\LouvreBundle\Entity\Tickets $ticket
-     * @return \LW\LouvreBundle\Entity\Orders
+     * Add ticket
+     *
+     * @param \LWLouvreBundle\Entity\Ticket $ticket
+     *
+     * @return Orders
      */
-    public function addTicket(\LW\LouvreBundle\Entity\Tickets $ticket) {
-        $ticket->setOrder($this);
-        $this->tickets[] = $ticket;
-        return $this;
-    }
+     public function addTicket(\LWLouvreBundle\Entity\Tickets $ticket)
+      {
+      $this->tickets[] = $ticket;
+      $ticket->setOrder($this);
+
+      return $this;
+      } 
 
     /**
      * Remove ticket
@@ -243,21 +247,8 @@ class Orders {
      * @param \LWLouvreBundle\Entity\Ticket $ticket
      */
     public function removeTicket($ticket) {
-
+        
         $this->tickets->removeElement($ticket);
-    }
-
-    /**
-     * 
-     * @param type $tickets
-     * @return \LW\LouvreBundle\Entity\Orders
-     */
-    public function setTickets($tickets) {
-
-        foreach ($tickets as $ticket) {
-            $this->addTicket($ticket);
-        }
-        return $this;
     }
 
     /**
@@ -268,5 +259,14 @@ class Orders {
     public function getTickets() {
         return $this->tickets;
     }
+    public function setTickets($tickets)
+    {
+        foreach($tickets as $ticket) {
+            $this->addTickets($ticket);
+        }
+        return $this;
+    }
+
+
 
 }

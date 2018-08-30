@@ -38,8 +38,11 @@ class OrdersType extends AbstractType {
                 ->add('email', HiddenType::class)
                 ->add('tickets', CollectionType::class, array(
                     'entry_type' => TicketType::class,
-                    'allow_add' => true
+                    'allow_add' => true,
+                     'allow_delete' => true,
+                     'by_reference' => false
                 ))
+                
                 ->add('Continuer', SubmitType::class);
     }
 

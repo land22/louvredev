@@ -15,8 +15,7 @@ class PassTimeDayConstraintValidator extends ConstraintValidator
      * @param Constraint $constraint
      */
     public function validate($typeOrder, Constraint $constraint)
-    {
-        
+    { 
        $date = new \DateTime();
        $var = $date->format('H');
        if ( $var >= "14" AND $typeOrder == "Journée" ) {

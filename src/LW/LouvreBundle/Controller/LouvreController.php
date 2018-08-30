@@ -49,21 +49,6 @@ class LouvreController extends Controller {
 
     /**
      * 
-     * @return JsonResponse
-     */
-    public function avaibleDateAction() {
-        //$checkdate = $this->container->get('louvre.checkdate');
-        //$totalBillet = $checkdate->getTotalBillets($date_visite);
-        $date = new \DateTime('Y');
-        dump($date);
-        die();
-
-        $response = new JsonResponse(array('totalBillet' => $totalBillet));
-        return $response;
-    }
-
-    /**
-     * 
      * @param Request $request
      * @return type
      */
@@ -108,8 +93,8 @@ class LouvreController extends Controller {
             $session->get('booking')->setCodeReservation($codeReservation);
             $session->get('booking')->setEmail($request->request->get('email_order'));
             $em = $this->getDoctrine()->getManager();
-              $em->persist($session->get('booking'));
-              $em->flush(); 
+            $em->persist($session->get('booking'));
+            $em->flush();
             $serviceMailer = $this->container->get('louvre.sendOrders');
             $serviceMailer->sendOrders($session->get('booking'));
             $this->addFlash('info', 'Votre réservation a bien été effectuée. 
